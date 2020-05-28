@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Алексей Артищев](https://up.htmlacademy.ru/javascript/20/user/919965).
-* Наставник: `Антон Пермяков`.
+* Наставник: [Антон Пермяков](https://htmlacademy.ru/profile/webben).
 
 ---
 
