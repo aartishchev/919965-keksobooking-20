@@ -12,6 +12,8 @@ var APPARTMENT_PHOTOS = [
 ];
 var MIN_PIN_Y = 130;
 var MAX_PIN_Y = 630;
+var MAP_PIN_WIDTH = 50;
+var MAP_PIN_HEIGHT = 70;
 
 var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -21,9 +23,8 @@ var getRandomArrayElement = function (array) {
   return array[getRandomInteger(0, array.length - 1)];
 };
 
-var getRandomCutArray = function (array) {
-  array.length = getRandomInteger(0, array.length);
-  return array;
+var getRandomSlicedArray = function (array) {
+  return array.slice(0, getRandomInteger(0, array.length));
 };
 
 var shuffleArray = function (array) {
@@ -31,7 +32,7 @@ var shuffleArray = function (array) {
   var temporaryValue;
   var randomIndex;
   while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    randomIndex = getRandomInteger(0, array.length - 1);
     currentIndex -= 1;
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
@@ -42,7 +43,7 @@ var shuffleArray = function (array) {
 
 var getAuthor = function (linkValue) {
   var author = {
-    avatar: 'img/avatars/user' + 0 + linkValue + '.png'
+    avatar: 'img/avatars/user0' + linkValue + '.png'
   };
   return author;
 };
@@ -50,16 +51,16 @@ var getAuthor = function (linkValue) {
 var getOffer = function () {
   var offer = {
     title: 'Заголовок предложения',
-    adress: Number + ', ' + Number,
-    price: Number,
+    adress: '600, 350',
+    price: 5000,
     type: getRandomArrayElement(APPARTMENT_TYPES),
-    rooms: Number,
-    guests: Number,
+    rooms: 4,
+    guests: 3,
     checkin: getRandomArrayElement(CHECKIN_OPTIONS),
     checkout: getRandomArrayElement(CHECKOUT_OPTIONS),
-    features: getRandomCutArray(APPARTMENT_FEATURES),
+    features: getRandomSlicedArray(APPARTMENT_FEATURES),
     description: 'Строка с описанием',
-    photos: getRandomCutArray(APPARTMENT_PHOTOS)
+    photos: getRandomSlicedArray(APPARTMENT_PHOTOS)
   };
   return offer;
 };
@@ -99,13 +100,9 @@ var getAdverts = function (quantity) {
 };
 
 var getMapPinCoordinates = function (advert) {
-  var absoluteCoordinate =
-    'left: '
-    + (advert.location.x - (50 * 0.5)) // где взять высоту и ширину?
-    + 'px; top: '
-    + (advert.location.y - (70 * 0.5))
-    + 'px';
-  return absoluteCoordinate;
+  var PinCoordinateX = advert.location.x - (MAP_PIN_WIDTH * 0.5);
+  var PinCoordinateY = advert.location.y - MAP_PIN_HEIGHT;
+  return 'left: ' + PinCoordinateX + 'px; top: ' + PinCoordinateY + 'px';
 };
 
 var similarMapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
