@@ -150,25 +150,14 @@ var timeOutSelect = advertForm.querySelector('#timeout');
 var roomsSelect = advertForm.querySelector('#room_number');
 var guestsSelect = advertForm.querySelector('#capacity');
 
-var disableFormInputs = function () {
+var setFormInputsAvailability = function (isNotAvailable) {
   var advertFieldsets = advertForm.querySelectorAll('fieldset');
   var filterInputs = filtersForm.children;
   for (var i = 0; i < advertFieldsets.length; i++) {
-    advertFieldsets[i].setAttribute('disabled', 'disabled');
+    advertFieldsets[i].disabled = isNotAvailable;
   }
   for (var j = 0; j < filterInputs.length; j++) {
-    filterInputs[j].setAttribute('disabled', 'disabled');
-  }
-};
-
-var enableFormInputs = function () {
-  var advertFieldsets = advertForm.querySelectorAll('fieldset');
-  var filterInputs = filtersForm.children;
-  for (var i = 0; i < advertFieldsets.length; i++) {
-    advertFieldsets[i].removeAttribute('disabled');
-  }
-  for (var j = 0; j < filterInputs.length; j++) {
-    filterInputs[j].removeAttribute('disabled');
+    filterInputs[j].disabled = isNotAvailable;
   }
 };
 
@@ -203,49 +192,69 @@ var addGuestsOptionsHandler = function () {
   var currentRoomsOption = roomsSelect.value;
   var currentGuestOptions = GUESTS_OPTIONS[currentRoomsOption];
   for (var k = 0; k < guests.length; k++) {
-    guests[k].setAttribute('disabled', 'disabled');
+    guests[k].disabled = true;
   }
   for (var i = 0; i < currentGuestOptions.length; i++) {
     for (var j = 0; j < guests.length; j++) {
       if (currentGuestOptions[i] === guests[j].textContent) {
-        guests[j].removeAttribute('disabled');
+        guests[j].disabled = false;
       }
     }
+  }
+  addOptionValidation();
+};
+
+var addOptionValidation = function () {
+  var currentSelectValue = guestsSelect.value;
+  var currentOption = guestsSelect.querySelector('[value="' + currentSelectValue + '"]');
+  if (currentOption.disabled) {
+    guestsSelect.setCustomValidity('Эта опция не доступна. Пожалуйста, поменяйте на любой другой доступный вариант.');
+  } else {
+    guestsSelect.setCustomValidity('');
   }
 };
 
 var activatePage = function () {
   mapBlock.classList.remove('map--faded');
   advertForm.classList.remove('ad-form--disabled');
+
   adressInput.value = getMainPinCoordinatesByScale(1);
   mapPinsList.appendChild(renderAdvertsFragment(adverts));
+  setFormInputsAvailability(false);
+
   typeSelect.addEventListener('change', setMinPrice);
   advertForm.addEventListener('submit', deactivatePage);
   timeInSelect.addEventListener('change', setOutTime);
   timeOutSelect.addEventListener('change', setInTime);
   roomsSelect.addEventListener('change', addGuestsOptionsHandler);
-  enableFormInputs();
+  guestsSelect.addEventListener('change', addOptionValidation);
 };
 
 var deactivatePage = function () {
   mapBlock.classList.add('map--faded');
   advertForm.classList.add('ad-form--disabled');
+
   adressInput.value = getMainPinCoordinatesByScale(0.5);
+  setFormInputsAvailability(true);
+
   typeSelect.removeEventListener('change', setMinPrice);
   advertForm.removeEventListener('submit', deactivatePage);
   timeInSelect.removeEventListener('change', setOutTime);
   timeOutSelect.removeEventListener('change', setInTime);
   roomsSelect.removeEventListener('change', addGuestsOptionsHandler);
-  disableFormInputs();
+  guestsSelect.removeEventListener('change', addOptionValidation);
 };
 
 adressInput.value = getMainPinCoordinatesByScale(0.5);
-disableFormInputs();
+setFormInputsAvailability(true);
+addGuestsOptionsHandler();
+
 mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     activatePage();
   }
 });
+
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     activatePage();
