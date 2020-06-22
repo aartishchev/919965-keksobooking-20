@@ -1,17 +1,6 @@
 'use strict';
 
 (function () {
-  var APPARTMENT_TYPES = ['palace', 'flat', 'house', 'bungalo'];
-  var ADVERTS_QUANTITY = 8;
-  var CHECKIN_OPTIONS = ['12:00', '13:00', '14:00'];
-  var CHECKOUT_OPTIONS = ['12:00', '13:00', '14:00'];
-  var APPARTMENT_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var APPARTMENT_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-  var PIN_MIN_Y = 130;
-  var PIN_MAX_Y = 630;
-  var PIN_WIDTH = 50;
-  var PIN_HEIGHT = 70;
-
   var getAuthor = function (linkValue) {
     var author = {
       avatar: 'img/avatars/user0' + linkValue + '.png'
@@ -24,14 +13,14 @@
       title: 'Заголовок предложения',
       adress: '600, 350',
       price: 5000,
-      type: window.util.getRandomArrayElement(APPARTMENT_TYPES),
+      type: window.util.getRandomArrayElement(window.consts.APPARTMENT_TYPES),
       rooms: 4,
       guests: 3,
-      checkin: window.util.getRandomArrayElement(CHECKIN_OPTIONS),
-      checkout: window.util.getRandomArrayElement(CHECKOUT_OPTIONS),
-      features: window.util.getRandomSlicedArray(APPARTMENT_FEATURES),
+      checkin: window.util.getRandomArrayElement(window.consts.CHECKIN_OPTIONS),
+      checkout: window.util.getRandomArrayElement(window.consts.CHECKOUT_OPTIONS),
+      features: window.util.getRandomSlicedArray(window.consts.APPARTMENT_FEATURES),
       description: 'Строка с описанием',
-      photos: window.util.getRandomSlicedArray(APPARTMENT_PHOTOS)
+      photos: window.util.getRandomSlicedArray(window.consts.APPARTMENT_PHOTOS)
     };
     return offer;
   };
@@ -41,7 +30,7 @@
   var getLocation = function () {
     var location = {
       x: window.util.getRandomInteger(0, mapPinsList.clientWidth),
-      y: window.util.getRandomInteger(PIN_MIN_Y, PIN_MAX_Y)
+      y: window.util.getRandomInteger(window.consts.PIN_MIN_Y, window.consts.PIN_MAX_Y)
     };
     return location;
   };
@@ -71,8 +60,8 @@
   };
 
   var getMapPinCoordinates = function (advert) {
-    var PinCoordinateX = advert.location.x - (PIN_WIDTH * 0.5);
-    var PinCoordinateY = advert.location.y - PIN_HEIGHT;
+    var PinCoordinateX = advert.location.x - (window.consts.PIN_WIDTH * 0.5);
+    var PinCoordinateY = advert.location.y - window.consts.PIN_HEIGHT;
     return 'left: ' + PinCoordinateX + 'px; top: ' + PinCoordinateY + 'px';
   };
 
@@ -95,12 +84,11 @@
     return fragment;
   };
 
-  var adverts = getAdverts(ADVERTS_QUANTITY);
+  var adverts = getAdverts(window.consts.ADVERTS_QUANTITY);
 
   window.pin = {
     renderAdvertsFragment: renderAdvertsFragment,
     adverts: adverts,
-    PIN_HEIGHT: PIN_HEIGHT
   };
 
 })();
