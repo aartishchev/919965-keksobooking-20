@@ -86,10 +86,10 @@
       <h2 class="notice__title">Ваше объявление</h2>
       <form
         class="ad-form ad-form--disabled"
+        action = "https://javascript.pages.academy/keksobooking"
         method="post"
         enctype="multipart/form-data"
         autocomplete="off"
-        action = "https://javascript.pages.academy/keksobooking"
       >
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
@@ -119,6 +119,7 @@
             placeholder="Милая, уютная квартирка в центре Токио"
             minlength="30"
             maxlength="100"
+            value="Милая, уютная квартирка в центре Токио"
             required
           >
         </fieldset>
@@ -279,7 +280,7 @@
       <button class="error__button">Попробовать снова</button>
     </div>
   </template>
-  
+
   <script src="js/consts.js"></script>
   <script src="js/util.js"></script>
   <script src="js/pin.js"></script>

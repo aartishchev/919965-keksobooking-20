@@ -6,7 +6,12 @@
   var CHECKIN_OPTIONS = ['12:00', '13:00', '14:00'];
   var CHECKOUT_OPTIONS = ['12:00', '13:00', '14:00'];
   var APPARTMENT_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var APPARTMENT_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+  var APPARTMENT_PHOTOS = [
+    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+  ];
+
   var PIN_MIN_Y = 130;
   var PIN_MAX_Y = 630;
   var PIN_WIDTH = 50;

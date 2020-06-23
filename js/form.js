@@ -76,18 +76,33 @@
     }
   };
 
+  var activateForm = function () {
+    setFormInputsAvailability(true);
+    adressInput.value = getMainPinCoordinatesByScale(1);
+    typeSelect.addEventListener('change', setMinPrice);
+    timeInSelect.addEventListener('change', setOutTime);
+    timeOutSelect.addEventListener('change', setInTime);
+    roomsSelect.addEventListener('change', addGuestsOptionsHandler);
+    guestsSelect.addEventListener('change', addOptionValidation);
+  };
+
+  var deactivateForm = function () {
+    setFormInputsAvailability(false);
+    adressInput.value = getMainPinCoordinatesByScale(0.5);
+    typeSelect.removeEventListener('change', setMinPrice);
+    timeInSelect.removeEventListener('change', setOutTime);
+    timeOutSelect.removeEventListener('change', setInTime);
+    roomsSelect.removeEventListener('change', addGuestsOptionsHandler);
+    guestsSelect.removeEventListener('change', addOptionValidation);
+  };
+
   adressInput.value = getMainPinCoordinatesByScale(0.5);
   setFormInputsAvailability(false);
   addGuestsOptionsHandler();
 
   window.form = {
-    setMinPrice: setMinPrice,
-    setInTime: setInTime,
-    setOutTime: setOutTime,
-    getMainPinCoordinatesByScale: getMainPinCoordinatesByScale,
-    setFormInputsAvailability: setFormInputsAvailability,
-    addGuestsOptionsHandler: addGuestsOptionsHandler,
-    addOptionValidation: addOptionValidation
+    activateForm: activateForm,
+    deactivateForm: deactivateForm,
   };
 
 })();
