@@ -23,15 +23,15 @@
     }
   };
 
-  var getMainPinCoordinatesByScale = function (scale) {
-    var mainPinWidth = mainPin.offsetWidth;
-    var mainPinHeight = window.consts.PIN_HEIGHT;
-    var coordinateX = parseInt(mainPin.style.left, 10);
-    var coordinateY = parseInt(mainPin.style.top, 10);
-    var valueX = Math.round(coordinateX + mainPinWidth / 2);
-    var valueY = coordinateY + mainPinHeight * scale;
-    return valueX + ', ' + valueY;
-  };
+  // var getMainPinCoordinatesByScale = function (scale) {
+  //   var mainPinWidth = mainPin.offsetWidth;
+  //   var mainPinHeight = window.consts.PIN_HEIGHT;
+  //   var coordinateX = parseInt(mainPin.style.left, 10);
+  //   var coordinateY = parseInt(mainPin.style.top, 10);
+  //   var valueX = Math.round(coordinateX + mainPinWidth / 2);
+  //   var valueY = coordinateY + mainPinHeight * scale;
+  //   return valueX + ', ' + valueY;
+  // };
 
   var setMinPrice = function () {
     var priceInput = advertForm.querySelector('#price');
