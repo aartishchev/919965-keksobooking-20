@@ -3,13 +3,12 @@
 (function () {
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
-  var mapPinsList = document.querySelector('.map__pins');
   var advertForm = document.querySelector('.ad-form');
 
   var activatePage = function () {
     mapBlock.classList.remove('map--faded');
     advertForm.classList.remove('ad-form--disabled');
-    mapPinsList.appendChild(window.pin.renderAdvertsFragment(window.pin.adverts));
+    window.pin.positionMapPins();
     window.form.activateForm();
     advertForm.addEventListener('submit', deactivatePage);
   };
