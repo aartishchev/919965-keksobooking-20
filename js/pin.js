@@ -86,7 +86,9 @@
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < adverts.length; i++) {
       var currentDomAdvert = renderMapPin(adverts[i]);
-      fragment.appendChild(currentDomAdvert);
+      if (adverts[i].offer) {
+        fragment.appendChild(currentDomAdvert);
+      }
     }
     return fragment;
   };
@@ -98,19 +100,8 @@
     mapPinsList.appendChild(advertsFragment);
   };
 
-  var onError = function (errorMessage) {
-    var errorBlock = document.createElement('div');
-    errorBlock.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    errorBlock.style.position = 'absolute';
-    errorBlock.style.left = 0;
-    errorBlock.style.right = 0;
-    errorBlock.style.fontSize = '30px';
-    errorBlock.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', errorBlock);
-  };
-
   var positionMapPins = function () {
-    window.backend.load(onLoad, onError);
+    window.backend.load(onLoad);
   };
 
   window.pin = {
