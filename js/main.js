@@ -21,12 +21,18 @@
     advertForm.removeEventListener('submit', deactivatePage);
   };
 
-  mainPin.addEventListener('mousedown', function (evt) {
+  var onMainPinClick = function (evt) {
     window.util.onMousedownEvent(evt, activatePage);
-  });
+  };
+
+  mainPin.addEventListener('mousedown', onMainPinClick);
 
   mainPin.addEventListener('keydown', function (evt) {
     window.util.onEnterEvent(evt, activatePage);
   });
+
+  window.main = {
+    onMainPinClick: onMainPinClick
+  };
 
 })();
