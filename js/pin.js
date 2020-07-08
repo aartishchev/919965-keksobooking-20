@@ -18,8 +18,12 @@
   };
 
   var renderAdvertsFragment = function (adverts) {
+    var currentArrayLength = window.consts.ADVERTS_TO_RENDER;
+    if (currentArrayLength > adverts.length) {
+      currentArrayLength = adverts.length;
+    }
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < adverts.length; i++) {
+    for (var i = 0; i < currentArrayLength; i++) {
       var currentDomAdvert = renderMapPin(adverts[i]);
       if (adverts[i].offer) {
         fragment.appendChild(currentDomAdvert);
@@ -28,12 +32,18 @@
     return fragment;
   };
 
+  var renderAdverts = function (adverts) {
+    var fragment = renderAdvertsFragment(adverts);
+    mapPinsList.appendChild(fragment);
+  };
+
   var mapPinsList = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
-    var advertsFragment = renderAdvertsFragment(adverts);
-    mapPinsList.appendChild(advertsFragment);
+    window.pin.loadedAdverts = adverts; // сохраняем данные с сервера
+    renderAdverts(adverts);
+    window.filter.activateFilter();
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
@@ -43,7 +53,8 @@
   };
 
   window.pin = {
-    positionMapPins: positionMapPins
+    positionMapPins: positionMapPins,
+    renderAdverts: renderAdverts
   };
 
 })();

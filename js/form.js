@@ -4,7 +4,6 @@
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var advertForm = document.querySelector('.ad-form');
-  var filtersForm = document.querySelector('.map__filters');
   var adressInput = advertForm.querySelector('#address');
   var typeSelect = advertForm.querySelector('#type');
   var timeInSelect = advertForm.querySelector('#timein');
@@ -12,14 +11,10 @@
   var roomsSelect = advertForm.querySelector('#room_number');
   var guestsSelect = advertForm.querySelector('#capacity');
 
-  var setFormInputsAvailability = function (isAvailable) {
+  var setMainFormAvailability = function (isAvailable) {
     var advertFieldsets = advertForm.querySelectorAll('fieldset');
-    var filterInputs = filtersForm.children;
     for (var i = 0; i < advertFieldsets.length; i++) {
       advertFieldsets[i].disabled = !isAvailable;
-    }
-    for (var j = 0; j < filterInputs.length; j++) {
-      filterInputs[j].disabled = !isAvailable;
     }
   };
 
@@ -77,7 +72,7 @@
   };
 
   var activateForm = function () {
-    setFormInputsAvailability(true);
+    setMainFormAvailability(true);
     adressInput.value = getMainPinCoordinatesByScale(1);
     typeSelect.addEventListener('change', setMinPrice);
     timeInSelect.addEventListener('change', setOutTime);
@@ -87,7 +82,7 @@
   };
 
   var deactivateForm = function () {
-    // setFormInputsAvailability(false);
+    // setMainFormAvailability(false);
     adressInput.value = getMainPinCoordinatesByScale(0.5);
     typeSelect.removeEventListener('change', setMinPrice);
     timeInSelect.removeEventListener('change', setOutTime);
@@ -97,7 +92,7 @@
   };
 
   adressInput.value = getMainPinCoordinatesByScale(0.5);
-  setFormInputsAvailability(false);
+  setMainFormAvailability(false);
   addGuestsOptionsHandler();
 
   window.form = {
