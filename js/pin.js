@@ -35,6 +35,7 @@
     var advertsFragment = renderAdvertsFragment(adverts);
     mapPinsList.appendChild(advertsFragment);
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
+    mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
 
   var positionMapPins = function () {

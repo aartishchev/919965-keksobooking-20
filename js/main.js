@@ -25,14 +25,16 @@
     window.util.onMousedownEvent(evt, activatePage);
   };
 
-  mainPin.addEventListener('mousedown', onMainPinClick);
-
-  mainPin.addEventListener('keydown', function (evt) {
+  var onMainPinEnter = function (evt) {
     window.util.onEnterEvent(evt, activatePage);
-  });
+  };
+
+  mainPin.addEventListener('mousedown', onMainPinClick);
+  mainPin.addEventListener('keydown', onMainPinEnter);
 
   window.main = {
-    onMainPinClick: onMainPinClick
+    onMainPinClick: onMainPinClick,
+    onMainPinEnter: onMainPinEnter
   };
 
 })();
