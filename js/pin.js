@@ -9,7 +9,7 @@
 
   var similarMapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var renderMapPin = function (advert) {
+  var getMapPin = function (advert) {
     var mapPin = similarMapPinTemplate.cloneNode(true);
     mapPin.style = getMapPinCoordinates(advert);
     mapPin.querySelector('img').setAttribute('src', advert.author.avatar);
@@ -17,14 +17,14 @@
     return mapPin;
   };
 
-  var renderAdvertsFragment = function (adverts) {
+  var getAdvertsFragment = function (adverts) {
     var currentArrayLength = window.consts.ADVERTS_TO_RENDER;
     if (currentArrayLength > adverts.length) {
       currentArrayLength = adverts.length;
     }
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < currentArrayLength; i++) {
-      var currentDomAdvert = renderMapPin(adverts[i]);
+      var currentDomAdvert = getMapPin(adverts[i]);
       if (adverts[i].offer) {
         fragment.appendChild(currentDomAdvert);
       }
@@ -33,7 +33,7 @@
   };
 
   var renderAdverts = function (adverts) {
-    var fragment = renderAdvertsFragment(adverts);
+    var fragment = getAdvertsFragment(adverts);
     mapPinsList.appendChild(fragment);
   };
 
@@ -44,6 +44,7 @@
     window.pin.loadedAdverts = adverts; // сохраняем данные с сервера
     renderAdverts(adverts);
     window.filter.activateFilter();
+    window.card.renderCard();
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
