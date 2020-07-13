@@ -27,6 +27,12 @@
     return array;
   };
 
+  var removeChildren = function (parentElement) {
+    while (parentElement.firstChild) {
+      parentElement.removeChild(parentElement.firstChild);
+    }
+  };
+
   var onEnterEvent = function (evt, action) {
     if (evt.key === 'Enter') {
       action();
@@ -45,7 +51,8 @@
     getRandomSlicedArray: getRandomSlicedArray,
     shuffleArray: shuffleArray,
     onEnterEvent: onEnterEvent,
-    onMousedownEvent: onMousedownEvent
+    onMousedownEvent: onMousedownEvent,
+    removeChildren: removeChildren
   };
 
 })();
