@@ -14,7 +14,7 @@
 
   var PIN_MIN_Y = 130;
   var PIN_MAX_Y = 630;
-  var PIN_WIDTH = 50;
+  var PIN_WIDTH = 65;
   var PIN_HEIGHT = 70;
 
   var MIN_PRICE_BUNGALO = 0;
