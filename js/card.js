@@ -105,8 +105,21 @@
     mapBlock.insertBefore(card, filtersContainer);
   };
 
+  // удаляем карточку, если отрисована
+  var tryRemoveCard = function () {
+    return function () {
+      var card = mapBlock.querySelector('.map__card');
+      if (card) {
+
+        card.remove();
+      }
+    };
+
+  };
+
   window.card = {
-    renderCard: renderCard
+    renderCard: renderCard,
+    tryRemoveCard: tryRemoveCard
   };
 
 })();

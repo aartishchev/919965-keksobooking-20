@@ -10,27 +10,26 @@
 
   var similarAdvertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var getAdvertPin = function (advert) {
+  var getAdvertPin = function (advert, fragmentIndex) {
     var advertPin = similarAdvertPinTemplate.cloneNode(true);
 
     advertPin.style = getAdvertPinCoordinates(advert);
-    advertPin.querySelector('img').src = advert.author.avatar;
-    advertPin.querySelector('img').alt = advert.offer.title;
+    advertPin.setAttribute('data-index', fragmentIndex);
+
+    var advertPinImg = advertPin.querySelector('img');
+    advertPinImg.src = advert.author.avatar;
+    advertPinImg.alt = advert.offer.title;
+    advertPinImg.setAttribute('data-index', fragmentIndex);
 
     return advertPin;
   };
 
   var getAdvertsFragment = function (adverts) {
-    var currentArrayLength = window.consts.ADVERTS_TO_RENDER;
-
-    if (currentArrayLength > adverts.length) {
-      currentArrayLength = adverts.length;
-    }
-
     var fragment = document.createDocumentFragment();
+    var advertsCount = Math.min(adverts.length, window.consts.ADVERTS_TO_RENDER);
 
-    for (var i = 0; i < currentArrayLength; i++) {
-      var currentDomAdvert = getAdvertPin(adverts[i]);
+    for (var i = 0; i < advertsCount; i++) {
+      var currentDomAdvert = getAdvertPin(adverts[i], i);
 
       if (adverts[i].offer && adverts[i].author && adverts[i].location) {
         fragment.appendChild(currentDomAdvert);
@@ -41,22 +40,34 @@
     return fragment;
   };
 
-  var renderAdverts = function (adverts) {
-    var fragment = getAdvertsFragment(adverts);
-    advertPinsList.appendChild(fragment);
+  var onAdvertClick = function (adverts) {
+    return function (evt) {
+      var advertIndex = evt.target.getAttribute('data-index');
+      if (evt.target.getAttribute('data-index')) {
+        window.card.renderCard(adverts[advertIndex]);
+      }
+    };
   };
 
   var advertPinsList = document.querySelector('.map__pins');
-  var mainPin = document.querySelector('.map__pin--main');
+
+  var renderAdverts = function (adverts) {
+    // window.card.tryRemoveCard();
+    var fragment = getAdvertsFragment(adverts);
+    advertPinsList.appendChild(fragment);
+    advertPinsList.addEventListener('mousedown', onAdvertClick(adverts));
+    // mapPinsList.addEventListener('keydown', window.util.onEnterEvent(evt, onAdvertInteraction(adverts)));
+  };
+
+  // var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
     window.pin.loadedAdverts = adverts; // сохраняем данные с сервера
-    renderAdverts(adverts);
+    var shuffledAdverts = window.util.shuffleArray(adverts);
+    renderAdverts(shuffledAdverts);
     window.filter.activateFilter();
-    window.card.renderCard(adverts[0]);
-
-    mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
-    mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
+    // advertPin.removeEventListener('mousedown', window.main.onMainPinClick);
+    // advertPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
 
   var positionAdvertPins = function () {
