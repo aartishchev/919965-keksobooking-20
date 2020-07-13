@@ -98,6 +98,7 @@
   window.form = {
     activateForm: activateForm,
     deactivateForm: deactivateForm,
+    getMainPinCoordinatesByScale: getMainPinCoordinatesByScale
   };
 
 })();
