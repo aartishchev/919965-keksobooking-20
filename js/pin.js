@@ -12,8 +12,8 @@
   var getMapPin = function (advert) {
     var mapPin = similarMapPinTemplate.cloneNode(true);
     mapPin.style = getMapPinCoordinates(advert);
-    mapPin.querySelector('img').setAttribute('src', advert.author.avatar);
-    mapPin.querySelector('img').setAttribute('alt', advert.offer.title);
+    mapPin.querySelector('img').src = advert.author.avatar;
+    mapPin.querySelector('img').alt = advert.offer.title;
     return mapPin;
   };
 
@@ -44,7 +44,26 @@
     window.pin.loadedAdverts = adverts; // сохраняем данные с сервера
     renderAdverts(adverts);
     window.filter.activateFilter();
-    window.card.renderCard();
+
+    // var advert = {
+
+    //   offer: {
+    //     address: '102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3',
+    //     checkin: '14:00',
+    //     checkout: '10:00',
+    //     description: '',
+    //     features: [],
+    //     guests: '',
+    //     photos: [],
+    //     price: '',
+    //     rooms: '',
+    //     title: 'Уютное гнездышко для молодоженов',
+    //     type: 'house',
+    //   }
+    // };
+
+    window.card.renderCard(adverts[0]);
+
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
