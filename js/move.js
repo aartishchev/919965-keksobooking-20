@@ -25,6 +25,7 @@
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
       };
+
       startCoords = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
@@ -33,6 +34,7 @@
       if (mainPin.offsetTop - shift.y >= minPinY && mainPin.offsetTop - shift.y <= maxPinY) {
         mainPin.style.top = mainPin.offsetTop - shift.y + 'px';
       }
+
       if (mainPin.offsetLeft - shift.x >= minPinX && mainPin.offsetLeft - shift.x <= maxPinX) {
         mainPin.style.left = mainPin.offsetLeft - shift.x + 'px';
       }
