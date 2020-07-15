@@ -13,9 +13,11 @@
 
   var setMainFormAvailability = function (isAvailable) {
     var advertFieldsets = advertForm.querySelectorAll('fieldset');
+
     for (var i = 0; i < advertFieldsets.length; i++) {
       advertFieldsets[i].disabled = !isAvailable;
     }
+
   };
 
   var getMainPinCoordinatesByScale = function (scale) {
@@ -25,6 +27,7 @@
     var coordinateY = parseInt(mainPin.style.top, 10);
     var valueX = Math.round(coordinateX + mainPinWidth / 2);
     var valueY = coordinateY + mainPinHeight * scale;
+
     return valueX + ', ' + valueY;
   };
 
@@ -32,6 +35,7 @@
     var priceInput = advertForm.querySelector('#price');
     var currentTypeValue = typeSelect.value;
     var currentMinPrice = window.consts.MIN_PRICE_MAP[currentTypeValue];
+
     priceInput.placeholder = currentMinPrice;
     priceInput.min = currentMinPrice;
   };
@@ -48,27 +52,47 @@
     var guests = guestsSelect.children;
     var currentRoomsOption = roomsSelect.value;
     var currentGuestOptions = window.consts.GUESTS_OPTIONS[currentRoomsOption];
+
     for (var k = 0; k < guests.length; k++) {
       guests[k].disabled = true;
     }
+
     for (var i = 0; i < currentGuestOptions.length; i++) {
+
       for (var j = 0; j < guests.length; j++) {
+
         if (currentGuestOptions[i] === guests[j].textContent) {
           guests[j].disabled = false;
         }
+
       }
+
     }
+
     addOptionValidation();
   };
 
   var addOptionValidation = function () {
     var currentSelectValue = guestsSelect.value;
     var currentOption = guestsSelect.querySelector('[value="' + currentSelectValue + '"]');
+
     if (currentOption.disabled) {
       guestsSelect.setCustomValidity('Эта опция не доступна. Пожалуйста, выберите другой вариант.');
     } else {
       guestsSelect.setCustomValidity('');
     }
+
+  };
+
+  var onSave = function () {
+    deactivateForm();
+  };
+
+  var onError;
+
+  var onSubmitEvent = function (evt) {
+    window.backend.save(onSave, onError, new FormData(advertForm));
+    evt.preventDefault();
   };
 
   var activateForm = function () {
@@ -79,6 +103,7 @@
     timeOutSelect.addEventListener('change', setInTime);
     roomsSelect.addEventListener('change', addGuestsOptionsHandler);
     guestsSelect.addEventListener('change', addOptionValidation);
+    advertForm.addEventListener('submit', onSubmitEvent);
   };
 
   var deactivateForm = function () {
