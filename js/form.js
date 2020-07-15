@@ -32,8 +32,8 @@
     var priceInput = advertForm.querySelector('#price');
     var currentTypeValue = typeSelect.value;
     var currentMinPrice = window.consts.MIN_PRICE_MAP[currentTypeValue];
-    priceInput.setAttribute('placeholder', currentMinPrice);
-    priceInput.setAttribute('min', currentMinPrice);
+    priceInput.placeholder = currentMinPrice;
+    priceInput.min = currentMinPrice;
   };
 
   var setInTime = function () {

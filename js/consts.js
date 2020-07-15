@@ -36,6 +36,13 @@
     100: ['не для гостей']
   };
 
+  var housingType = {
+    'flat': 'Квартира',
+    'bungalo': 'Бунгало',
+    'house': 'Дом',
+    'palace': 'Дворец'
+  };
+
   var ADVERTS_TO_RENDER = 5;
 
   window.consts = {
@@ -51,7 +58,8 @@
     PIN_HEIGHT: PIN_HEIGHT,
     MIN_PRICE_MAP: MIN_PRICE_MAP,
     GUESTS_OPTIONS: GUESTS_OPTIONS,
-    ADVERTS_TO_RENDER: ADVERTS_TO_RENDER
+    ADVERTS_TO_RENDER: ADVERTS_TO_RENDER,
+    housingType: housingType
   };
 
 })();
