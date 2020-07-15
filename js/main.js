@@ -9,17 +9,21 @@
     mapBlock.classList.remove('map--faded');
     advertForm.classList.remove('ad-form--disabled');
     window.pin.positionMapPins();
+
     window.form.activateForm();
     mainPin.addEventListener('mousedown', window.move.onMoveEvent);
-    advertForm.addEventListener('submit', deactivatePage);
+
   };
 
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     advertForm.classList.add('ad-form--disabled');
+    window.filter.removeAdverts();
 
     window.form.deactivateForm();
-    advertForm.removeEventListener('submit', deactivatePage);
+
+    mainPin.addEventListener('mousedown', onMainPinClick);
+    mainPin.addEventListener('keydown', onMainPinEnter);
   };
 
   var onMainPinClick = function (evt) {
@@ -35,7 +39,8 @@
 
   window.main = {
     onMainPinClick: onMainPinClick,
-    onMainPinEnter: onMainPinEnter
+    onMainPinEnter: onMainPinEnter,
+    deactivatePage: deactivatePage
   };
 
 })();

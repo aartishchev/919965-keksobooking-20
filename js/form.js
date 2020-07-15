@@ -84,11 +84,66 @@
 
   };
 
-  var onSave = function () {
-    deactivateForm();
+  var mainBlock = document.querySelector('main');
+  var similarSuccessMessage = document.querySelector('#success').content.querySelector('.success');
+
+  // отрисовываем сообщение об успешной отправке
+  var renderSuccessMessage = function () {
+    mainBlock.appendChild(similarSuccessMessage);
   };
 
-  var onError;
+  // сохраняем ссылку на функцию для обработчика
+  var onSuccessMessageEscape = function (evt) {
+    window.util.onEscEvent(evt, removeSuccessMessage);
+  };
+
+  // удаляем сообщение об успешной отправке, удаляем обработчики
+  var removeSuccessMessage = function () {
+    var successBlock = mainBlock.querySelector('.success');
+    successBlock.remove();
+
+    document.removeEventListener('click', removeSuccessMessage);
+    document.removeEventListener('keydown', onSuccessMessageEscape);
+  };
+
+  // колбэк при успешной отправке объявления, добавляем обработчики на закрытие сообщения
+  var onSave = function () {
+    window.main.deactivatePage();
+    deactivateForm();
+    renderSuccessMessage();
+
+    document.addEventListener('click', removeSuccessMessage);
+    document.addEventListener('keydown', onSuccessMessageEscape);
+  };
+
+  var similarErrorMessage = document.querySelector('#error').content.querySelector('.error');
+
+  // отрисовываем сообщение об ошибке
+  var renderErrorMessage = function () {
+    mainBlock.appendChild(similarErrorMessage);
+  };
+
+  // сохраняем ссылку на функцию для обработчика
+  var onErrorMessageEscape = function (evt) {
+    window.util.onEscEvent(evt, removeErrorMessage);
+  };
+
+  // удаляем сообщение об ошибке, удаляем обработчики
+  var removeErrorMessage = function () {
+    var errorBlock = mainBlock.querySelector('.error');
+    errorBlock.remove();
+
+    document.removeEventListener('click', removeErrorMessage);
+    document.removeEventListener('keydown', onErrorMessageEscape);
+  };
+
+  // колбэк при ошибке отправки, добавляем обработчики на закрытие сообщения
+  var onError = function () {
+    renderErrorMessage();
+
+    document.addEventListener('click', removeErrorMessage);
+    document.addEventListener('keydown', onErrorMessageEscape);
+  };
 
   var onSubmitEvent = function (evt) {
     window.backend.save(onSave, onError, new FormData(advertForm));
@@ -98,6 +153,7 @@
   var activateForm = function () {
     setMainFormAvailability(true);
     adressInput.value = getMainPinCoordinatesByScale(1);
+
     typeSelect.addEventListener('change', setMinPrice);
     timeInSelect.addEventListener('change', setOutTime);
     timeOutSelect.addEventListener('change', setInTime);
@@ -107,13 +163,17 @@
   };
 
   var deactivateForm = function () {
-    // setMainFormAvailability(false);
+    setMainFormAvailability(false);
     adressInput.value = getMainPinCoordinatesByScale(0.5);
+
     typeSelect.removeEventListener('change', setMinPrice);
     timeInSelect.removeEventListener('change', setOutTime);
     timeOutSelect.removeEventListener('change', setInTime);
     roomsSelect.removeEventListener('change', addGuestsOptionsHandler);
     guestsSelect.removeEventListener('change', addOptionValidation);
+    advertForm.removeEventListener('submit', onSubmitEvent);
+
+    advertForm.reset();
   };
 
   adressInput.value = getMainPinCoordinatesByScale(0.5);
