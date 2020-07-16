@@ -16,9 +16,11 @@
     maxWidth: getMaxWidth()
   };
 
-  window.addEventListener('resize', function () {
+  var setBordersMaxWidth = function () {
     borders.maxWidth = getMaxWidth();
-  });
+  };
+
+  window.addEventListener('resize', window.util.debounce(setBordersMaxWidth));
 
   var onMoveEvent = function (evt) {
     evt.preventDefault();
