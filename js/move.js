@@ -5,10 +5,20 @@
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var adressInput = document.querySelector('#address');
 
-  var minPinY = window.consts.PIN_MIN_Y - window.consts.PIN_HEIGHT;
-  var maxPinY = window.consts.PIN_MAX_Y - window.consts.PIN_HEIGHT;
-  var minPinX = 0 - Math.round(window.consts.PIN_WIDTH * 0.5);
-  var maxPinX = mapBlock.offsetWidth - Math.round(window.consts.PIN_WIDTH * 0.5);
+  var getMaxWidth = function () {
+    return mapBlock.offsetWidth - Math.round(window.consts.PIN_WIDTH * 0.5);
+  };
+
+  var borders = {
+    minHeight: window.consts.PIN_MIN_Y - window.consts.PIN_HEIGHT,
+    maxHeight: window.consts.PIN_MAX_Y - window.consts.PIN_HEIGHT,
+    minWidth: 0 - Math.round(window.consts.PIN_WIDTH * 0.5),
+    maxWidth: getMaxWidth()
+  };
+
+  window.addEventListener('resize', function () {
+    borders.maxWidth = getMaxWidth();
+  });
 
   var onMoveEvent = function (evt) {
     evt.preventDefault();
@@ -31,12 +41,17 @@
         y: moveEvt.clientY
       };
 
-      if (mainPin.offsetTop - shift.y >= minPinY && mainPin.offsetTop - shift.y <= maxPinY) {
-        mainPin.style.top = mainPin.offsetTop - shift.y + 'px';
+      var newCoordinate = {
+        y: mainPin.offsetTop - shift.y,
+        x: mainPin.offsetLeft - shift.x
+      };
+
+      if (newCoordinate.y >= borders.minHeight && newCoordinate.y <= borders.maxHeight) {
+        mainPin.style.top = newCoordinate.y + 'px';
       }
 
-      if (mainPin.offsetLeft - shift.x >= minPinX && mainPin.offsetLeft - shift.x <= maxPinX) {
-        mainPin.style.left = mainPin.offsetLeft - shift.x + 'px';
+      if (newCoordinate.x >= borders.minWidth && newCoordinate.x <= borders.maxWidth) {
+        mainPin.style.left = newCoordinate.x + 'px';
       }
 
       adressInput.value = window.form.getMainPinCoordinatesByScale(1);
