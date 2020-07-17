@@ -19,7 +19,7 @@
   };
 
   var getMainPinCoordinatesByScale = function (scale) {
-    var mainPinWidth = mainPin.offsetWidth;
+    var mainPinWidth = window.consts.PIN_WIDTH;
     var mainPinHeight = window.consts.PIN_HEIGHT;
     var coordinateX = parseInt(mainPin.style.left, 10);
     var coordinateY = parseInt(mainPin.style.top, 10);
@@ -98,6 +98,7 @@
   window.form = {
     activateForm: activateForm,
     deactivateForm: deactivateForm,
+    getMainPinCoordinatesByScale: getMainPinCoordinatesByScale
   };
 
 })();

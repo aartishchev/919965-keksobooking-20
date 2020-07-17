@@ -33,6 +33,22 @@
     }
   };
 
+  var debounce = function (cb) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, parameters);
+      }, window.consts.DEBOUNCE_INTERVAL);
+    };
+  };
+
   var onEnterEvent = function (evt, action) {
     if (evt.key === 'Enter') {
       action();
@@ -52,7 +68,8 @@
     shuffleArray: shuffleArray,
     onEnterEvent: onEnterEvent,
     onMousedownEvent: onMousedownEvent,
-    removeChildren: removeChildren
+    removeChildren: removeChildren,
+    debounce: debounce
   };
 
 })();

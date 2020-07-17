@@ -10,6 +10,7 @@
     advertForm.classList.remove('ad-form--disabled');
     window.pin.positionMapPins();
     window.form.activateForm();
+    mainPin.addEventListener('mousedown', window.move.onMoveEvent);
     advertForm.addEventListener('submit', deactivatePage);
   };
 

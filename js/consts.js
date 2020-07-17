@@ -14,7 +14,7 @@
 
   var PIN_MIN_Y = 130;
   var PIN_MAX_Y = 630;
-  var PIN_WIDTH = 50;
+  var PIN_WIDTH = 65;
   var PIN_HEIGHT = 70;
 
   var MIN_PRICE_BUNGALO = 0;
@@ -44,6 +44,7 @@
   };
 
   var ADVERTS_TO_RENDER = 5;
+  var DEBOUNCE_INTERVAL = 500; // ms
 
   window.consts = {
     APPARTMENT_TYPES: APPARTMENT_TYPES,
@@ -59,6 +60,7 @@
     MIN_PRICE_MAP: MIN_PRICE_MAP,
     GUESTS_OPTIONS: GUESTS_OPTIONS,
     ADVERTS_TO_RENDER: ADVERTS_TO_RENDER,
+    DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL,
     housingType: housingType
   };
 
