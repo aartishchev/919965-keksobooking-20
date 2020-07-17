@@ -8,7 +8,7 @@
   var activatePage = function () {
     mapBlock.classList.remove('map--faded');
     advertForm.classList.remove('ad-form--disabled');
-    window.pin.positionMapPins();
+    window.pin.positionAdvertPins();
 
     window.form.activateForm();
     mainPin.addEventListener('mousedown', window.move.onMoveEvent);
@@ -21,7 +21,9 @@
     window.filter.removeAdverts();
 
     window.form.deactivateForm();
+    mainPin.removeEventListener('mousedown', window.move.onMoveEvent);
 
+    window.move.checkMainPinPosition();
     mainPin.addEventListener('mousedown', onMainPinClick);
     mainPin.addEventListener('keydown', onMainPinEnter);
   };
