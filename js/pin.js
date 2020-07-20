@@ -77,14 +77,14 @@
 
     var advertClickHandler = advertClickFactory(adverts);
 
-    advertPinsList.addEventListener('mousedown', advertClickHandler);
+    advertPinsList.addEventListener('click', advertClickHandler);
     advertPinsList.addEventListener('keydown', onAdvertEnter);
   };
 
   var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
-    window.pin.loadedAdverts = adverts; // сохраняем данные с сервера
+    window.pin.loadedAdverts = adverts;
     window.filter.activateFilter();
 
     var shuffledAdverts = window.util.shuffleArray(adverts);

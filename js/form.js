@@ -14,9 +14,9 @@
   var setMainFormAvailability = function (isAvailable) {
     var advertFieldsets = advertForm.querySelectorAll('fieldset');
 
-    for (var i = 0; i < advertFieldsets.length; i++) {
-      advertFieldsets[i].disabled = !isAvailable;
-    }
+    advertFieldsets.forEach(function (element) {
+      element.disabled = !isAvailable;
+    });
 
   };
 
@@ -150,6 +150,10 @@
     evt.preventDefault();
   };
 
+  var onResetEvent = function () {
+    window.main.deactivatePage();
+  };
+
   var activateForm = function () {
     setMainFormAvailability(true);
     adressInput.value = getMainPinCoordinatesByScale(1);
@@ -159,6 +163,7 @@
     timeOutSelect.addEventListener('change', setInTime);
     roomsSelect.addEventListener('change', addGuestsOptionsHandler);
     guestsSelect.addEventListener('change', addOptionValidation);
+    advertForm.addEventListener('reset', onResetEvent);
     advertForm.addEventListener('submit', onSubmitEvent);
   };
 
@@ -171,6 +176,7 @@
     timeOutSelect.removeEventListener('change', setInTime);
     roomsSelect.removeEventListener('change', addGuestsOptionsHandler);
     guestsSelect.removeEventListener('change', addOptionValidation);
+    advertForm.removeEventListener('reset', onResetEvent);
     advertForm.removeEventListener('submit', onSubmitEvent);
 
     advertForm.reset();
