@@ -52,9 +52,9 @@
     };
   };
 
-  // var onAdvertEnter = function (evt) {
-  //   window.util.onEnterEvent(evt, onAdvertClick(adverts));
-  // };
+  var onAdvertEnter = function (evt) {
+    window.util.onEnterEvent(evt, onAdvertClick);
+  };
 
   var advertPinsList = document.querySelector('.map__pins');
 
@@ -63,8 +63,9 @@
     advertPinsList.appendChild(fragment);
 
     var advertClickHandler = onAdvertClick(adverts);
+
     advertPinsList.addEventListener('mousedown', advertClickHandler);
-    // advertPinsList.addEventListener('keydown', onAdvertEnter);
+    advertPinsList.addEventListener('keydown', onAdvertEnter);
   };
 
   var mainPin = document.querySelector('.map__pin--main');
@@ -84,9 +85,17 @@
     window.backend.load(onLoad);
   };
 
+  var removeAdverts = function () {
+    var advertsToRemove = advertPinsList.querySelectorAll('[type="button"]');
+    advertsToRemove.forEach(function (element) {
+      element.remove();
+    });
+  };
+
   window.pin = {
     positionAdvertPins: positionAdvertPins,
-    renderAdverts: renderAdverts
+    renderAdverts: renderAdverts,
+    removeAdverts: removeAdverts
   };
 
 })();

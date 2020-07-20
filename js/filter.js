@@ -6,34 +6,34 @@
 
   var setFilterFormAvailability = function (isAvailable) {
     var filterInputs = filtersForm.children;
-    for (var j = 0; j < filterInputs.length; j++) {
-      filterInputs[j].disabled = !isAvailable;
+
+    for (var i = 0; i < filterInputs.length; i++) {
+      filterInputs[i].disabled = !isAvailable;
     }
+    // filterInputs.forEach(function (element) {
+    //   element.disabled = !isAvailable;
+    // });
   };
 
-  var mapPinsList = document.querySelector('.map__pins');
-
-  var removeAdverts = function () {
-    var advertsToRemove = mapPinsList.querySelectorAll('[type="button"]');
-    advertsToRemove.forEach(function (element) {
-      element.remove();
-    });
-  };
 
   var updateAdverts = function (filteredAdverts) {
-    removeAdverts();
+    window.card.removeCard();
+    window.pin.removeAdverts();
     window.pin.renderAdverts(filteredAdverts);
   };
 
   var filterHousingType = function () {
     var selectedType = housingSelect.value;
     var filteredAdverts = window.pin.loadedAdverts.filter(function (advert) {
+
       if (selectedType === 'any') {
         return advert;
       } else {
         return advert.offer.type === selectedType;
       }
+
     });
+
     updateAdverts(filteredAdverts);
   };
 
@@ -46,7 +46,6 @@
 
   window.filter = {
     activateFilter: activateFilter,
-    removeAdverts: removeAdverts
   };
 
 })();
