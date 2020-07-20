@@ -59,6 +59,7 @@
         removeAdvertHighlight();
 
         window.card.renderCard(adverts[advertIndex]);
+
         var targetButton = evt.target.closest('button');
         targetButton.classList.add('map__pin--active');
       }
