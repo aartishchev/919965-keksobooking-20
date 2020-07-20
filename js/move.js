@@ -5,6 +5,11 @@
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var adressInput = document.querySelector('#address');
 
+  var defaultMainPinPosition = {
+    top: mainPin.style.top,
+    left: mainPin.style.left
+  };
+
   var getMaxWidth = function () {
     return mapBlock.offsetWidth - Math.round(window.consts.PIN_WIDTH * 0.5);
   };
@@ -69,8 +74,19 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
+  var checkMainPinPosition = function () {
+    if (defaultMainPinPosition.top === mainPin.style.top && defaultMainPinPosition.left === mainPin.style.left) {
+      return;
+
+    } else {
+      mainPin.style.top = defaultMainPinPosition.top;
+      mainPin.style.left = defaultMainPinPosition.left;
+    }
+  };
+
   window.move = {
-    onMoveEvent: onMoveEvent
+    onMoveEvent: onMoveEvent,
+    checkMainPinPosition: checkMainPinPosition
   };
 
 })();

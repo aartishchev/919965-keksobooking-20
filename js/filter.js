@@ -46,6 +46,7 @@
 
   window.filter = {
     activateFilter: activateFilter,
+    removeAdverts: removeAdverts
   };
 
 })();

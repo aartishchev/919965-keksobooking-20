@@ -1,23 +1,23 @@
 'use strict';
 
 (function () {
-  var getMapPinCoordinates = function (advert) {
+  var getAdvertPinCoordinates = function (advert) {
     var PinCoordinateX = advert.location.x - (window.consts.PIN_WIDTH * 0.5);
     var PinCoordinateY = advert.location.y - window.consts.PIN_HEIGHT;
 
     return 'left: ' + PinCoordinateX + 'px; top: ' + PinCoordinateY + 'px';
   };
 
-  var similarMapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var similarAdvertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var getMapPin = function (advert) {
-    var mapPin = similarMapPinTemplate.cloneNode(true);
+  var getAdvertPin = function (advert) {
+    var advertPin = similarAdvertPinTemplate.cloneNode(true);
 
-    mapPin.style = getMapPinCoordinates(advert);
-    mapPin.querySelector('img').src = advert.author.avatar;
-    mapPin.querySelector('img').alt = advert.offer.title;
+    advertPin.style = getAdvertPinCoordinates(advert);
+    advertPin.querySelector('img').src = advert.author.avatar;
+    advertPin.querySelector('img').alt = advert.offer.title;
 
-    return mapPin;
+    return advertPin;
   };
 
   var getAdvertsFragment = function (adverts) {
@@ -30,7 +30,7 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < currentArrayLength; i++) {
-      var currentDomAdvert = getMapPin(adverts[i]);
+      var currentDomAdvert = getAdvertPin(adverts[i]);
 
       if (adverts[i].offer && adverts[i].author && adverts[i].location) {
         fragment.appendChild(currentDomAdvert);
@@ -43,10 +43,10 @@
 
   var renderAdverts = function (adverts) {
     var fragment = getAdvertsFragment(adverts);
-    mapPinsList.appendChild(fragment);
+    advertPinsList.appendChild(fragment);
   };
 
-  var mapPinsList = document.querySelector('.map__pins');
+  var advertPinsList = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
@@ -59,12 +59,12 @@
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
 
-  var positionMapPins = function () {
+  var positionAdvertPins = function () {
     window.backend.load(onLoad);
   };
 
   window.pin = {
-    positionMapPins: positionMapPins,
+    positionAdvertPins: positionAdvertPins,
     renderAdverts: renderAdverts
   };
 
