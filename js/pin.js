@@ -14,12 +14,12 @@
     var advertPin = similarAdvertPinTemplate.cloneNode(true);
 
     advertPin.style = getAdvertPinCoordinates(advert);
-    advertPin.setAttribute('data-index', fragmentIndex);
+    advertPin.dataset.index = fragmentIndex;
 
     var advertPinImg = advertPin.querySelector('img');
     advertPinImg.src = advert.author.avatar;
     advertPinImg.alt = advert.offer.title;
-    advertPinImg.setAttribute('data-index', fragmentIndex);
+    advertPinImg.dataset.index = fragmentIndex;
 
     return advertPin;
   };
@@ -42,32 +42,42 @@
 
   var onAdvertClick = function (adverts) {
     return function (evt) {
-      var advertIndex = evt.target.getAttribute('data-index');
-      if (evt.target.getAttribute('data-index')) {
+      var advertIndex = evt.target.dataset.index;
+
+      if (evt.target.dataset.index) {
+        window.card.removeCard();
         window.card.renderCard(adverts[advertIndex]);
       }
+
     };
   };
+
+  // var onAdvertEnter = function (evt) {
+  //   window.util.onEnterEvent(evt, onAdvertClick(adverts));
+  // };
 
   var advertPinsList = document.querySelector('.map__pins');
 
   var renderAdverts = function (adverts) {
-    // window.card.tryRemoveCard();
     var fragment = getAdvertsFragment(adverts);
     advertPinsList.appendChild(fragment);
-    advertPinsList.addEventListener('mousedown', onAdvertClick(adverts));
-    // mapPinsList.addEventListener('keydown', window.util.onEnterEvent(evt, onAdvertInteraction(adverts)));
+
+    var advertClickHandler = onAdvertClick(adverts);
+    advertPinsList.addEventListener('mousedown', advertClickHandler);
+    // advertPinsList.addEventListener('keydown', onAdvertEnter);
   };
 
-  // var mainPin = document.querySelector('.map__pin--main');
+  var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
     window.pin.loadedAdverts = adverts; // сохраняем данные с сервера
+    window.filter.activateFilter();
+
     var shuffledAdverts = window.util.shuffleArray(adverts);
     renderAdverts(shuffledAdverts);
-    window.filter.activateFilter();
-    // advertPin.removeEventListener('mousedown', window.main.onMainPinClick);
-    // advertPin.removeEventListener('keydown', window.main.onMainPinEnter);
+
+    mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
+    mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
   };
 
   var positionAdvertPins = function () {

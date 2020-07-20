@@ -55,20 +55,14 @@
     }
   };
 
-  // var onEscEvent = function (evt, action) {
-  //   if (evt.key === 'Escape') {
-  //     action();
-  //   }
-  // };
-
-  var onMousedownEvent = function (evt, action) {
-    if (evt.button === 0) {
+  var onEscEvent = function (evt, action) {
+    if (evt.key === 'Escape') {
       action();
     }
   };
 
-  var onEscapeEvent = function (evt, action) {
-    if (evt.key === 'Escape') {
+  var onMousedownEvent = function (evt, action) {
+    if (evt.button === 0) {
       action();
     }
   };
@@ -79,8 +73,7 @@
     getRandomSlicedArray: getRandomSlicedArray,
     shuffleArray: shuffleArray,
     onEnterEvent: onEnterEvent,
-    // onEscEvent: onEscEvent,
-    onEscapeEvent: onEscapeEvent,
+    onEscEvent: onEscEvent,
     onMousedownEvent: onMousedownEvent,
     removeChildren: removeChildren,
     debounce: debounce
