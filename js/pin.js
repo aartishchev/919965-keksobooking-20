@@ -40,13 +40,39 @@
     return fragment;
   };
 
+  var advertPinsList = document.querySelector('.map__pins');
+
+  var removeAdvertHighlight = function () {
+    var highlightAdvert = advertPinsList.querySelector('.map__pin--active');
+
+    if (highlightAdvert) {
+      highlightAdvert.classList.remove('map__pin--active');
+    }
+  };
+
   var onAdvertClick = function (adverts) {
     return function (evt) {
       var advertIndex = evt.target.dataset.index;
 
+      var addAdvertHighlight = function () {
+        var currentTarget = evt.target;
+        var targetButton;
+
+        if (currentTarget.type === 'button') {
+          targetButton = currentTarget;
+        } else {
+          targetButton = currentTarget.parentElement;
+        }
+
+        targetButton.classList.add('map__pin--active');
+      };
+
       if (evt.target.dataset.index) {
         window.card.removeCard();
+        removeAdvertHighlight();
+
         window.card.renderCard(adverts[advertIndex]);
+        addAdvertHighlight();
       }
 
     };
@@ -55,8 +81,6 @@
   var onAdvertEnter = function (evt) {
     window.util.onEnterEvent(evt, onAdvertClick);
   };
-
-  var advertPinsList = document.querySelector('.map__pins');
 
   var renderAdverts = function (adverts) {
     var fragment = getAdvertsFragment(adverts);

@@ -17,6 +17,7 @@
     var currentIndex = array.length;
     var temporaryValue;
     var randomIndex;
+
     while (currentIndex !== 0) {
       randomIndex = getRandomInteger(0, array.length - 1);
       currentIndex -= 1;
@@ -24,6 +25,7 @@
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
+
     return array;
   };
 

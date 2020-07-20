@@ -18,7 +18,7 @@
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     advertForm.classList.add('ad-form--disabled');
-    window.filter.removeAdverts();
+    window.pin.removeAdverts();
     window.card.removeCard();
 
     window.form.deactivateForm();
