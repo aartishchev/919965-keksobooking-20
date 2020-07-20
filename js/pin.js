@@ -81,6 +81,17 @@
     advertPinsList.addEventListener('keydown', onAdvertEnter);
   };
 
+  var removeAdverts = function () {
+    var advertsToRemove = advertPinsList.querySelectorAll('[type="button"]');
+
+    advertsToRemove.forEach(function (element) {
+      element.remove();
+    });
+
+    // advertPinsList.removeEventListener('click', advertClickHandler);
+    advertPinsList.removeEventListener('keydown', onAdvertEnter);
+  };
+
   var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
@@ -96,13 +107,6 @@
 
   var positionAdvertPins = function () {
     window.backend.load(onLoad);
-  };
-
-  var removeAdverts = function () {
-    var advertsToRemove = advertPinsList.querySelectorAll('[type="button"]');
-    advertsToRemove.forEach(function (element) {
-      element.remove();
-    });
   };
 
   window.pin = {
