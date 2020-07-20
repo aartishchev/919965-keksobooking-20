@@ -50,43 +50,31 @@
     }
   };
 
-  var onAdvertClick = function (adverts) {
+  var advertClickFactory = function (adverts) {
     return function (evt) {
       var advertIndex = evt.target.dataset.index;
-
-      var addAdvertHighlight = function () {
-        var currentTarget = evt.target;
-        var targetButton;
-
-        if (currentTarget.type === 'button') {
-          targetButton = currentTarget;
-        } else {
-          targetButton = currentTarget.parentElement;
-        }
-
-        targetButton.classList.add('map__pin--active');
-      };
 
       if (evt.target.dataset.index) {
         window.card.removeCard();
         removeAdvertHighlight();
 
         window.card.renderCard(adverts[advertIndex]);
-        addAdvertHighlight();
+        var targetButton = evt.target.closest('button');
+        targetButton.classList.add('map__pin--active');
       }
 
     };
   };
 
   var onAdvertEnter = function (evt) {
-    window.util.onEnterEvent(evt, onAdvertClick);
+    window.util.onEnterEvent(evt, advertClickFactory);
   };
 
   var renderAdverts = function (adverts) {
     var fragment = getAdvertsFragment(adverts);
     advertPinsList.appendChild(fragment);
 
-    var advertClickHandler = onAdvertClick(adverts);
+    var advertClickHandler = advertClickFactory(adverts);
 
     advertPinsList.addEventListener('mousedown', advertClickHandler);
     advertPinsList.addEventListener('keydown', onAdvertEnter);
@@ -119,7 +107,8 @@
   window.pin = {
     positionAdvertPins: positionAdvertPins,
     renderAdverts: renderAdverts,
-    removeAdverts: removeAdverts
+    removeAdverts: removeAdverts,
+    loadedAdverts: []
   };
 
 })();

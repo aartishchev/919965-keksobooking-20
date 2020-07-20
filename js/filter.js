@@ -3,9 +3,10 @@
 (function () {
   var filtersForm = document.querySelector('.map__filters');
   var housingSelect = filtersForm.querySelector('#housing-type');
+  // var priceSelect = filtersForm.querySelector('#housing-price');
 
   var setFilterFormAvailability = function (isAvailable) {
-    var filterInputs = filtersForm.children;
+    var filterInputs = filtersForm.querySelectorAll('option');
 
     for (var i = 0; i < filterInputs.length; i++) {
       filterInputs[i].disabled = !isAvailable;
@@ -36,6 +37,17 @@
 
     updateAdverts(filteredAdverts);
   };
+
+  // var filterPriceType = function () {
+  //   var selectedType = priceSelect.value;
+  //   var filteredAdverts = window.pin.loadedAdverts.filter(function (advert) {
+
+  //    if (selectedType < )
+
+  //   });
+
+  //   updateAdverts(filteredAdverts);
+  // };
 
   var activateFilter = function () {
     setFilterFormAvailability(true);

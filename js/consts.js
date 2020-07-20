@@ -43,6 +43,11 @@
     'palace': 'Дворец'
   };
 
+  var housingPrice = {
+    'minMiddle': 10000,
+    'maxMiddle': 50000
+  };
+
   var ADVERTS_TO_RENDER = 5;
   var DEBOUNCE_INTERVAL = 500; // ms
 
@@ -61,7 +66,8 @@
     GUESTS_OPTIONS: GUESTS_OPTIONS,
     ADVERTS_TO_RENDER: ADVERTS_TO_RENDER,
     DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL,
-    housingType: housingType
+    housingType: housingType,
+    housingPrice: housingPrice
   };
 
 })();
