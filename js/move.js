@@ -11,13 +11,13 @@
   };
 
   var getMaxWidth = function () {
-    return mapBlock.offsetWidth - Math.round(window.consts.PIN_WIDTH * 0.5);
+    return mapBlock.offsetWidth - Math.round(window.const.PIN_WIDTH * 0.5);
   };
 
   var borders = {
-    minHeight: window.consts.PIN_MIN_Y - window.consts.PIN_HEIGHT,
-    maxHeight: window.consts.PIN_MAX_Y - window.consts.PIN_HEIGHT,
-    minWidth: 0 - Math.round(window.consts.PIN_WIDTH * 0.5),
+    minHeight: window.const.PIN_MIN_Y - window.const.PIN_HEIGHT,
+    maxHeight: window.const.PIN_MAX_Y - window.const.PIN_HEIGHT,
+    minWidth: 0 - Math.round(window.const.PIN_WIDTH * 0.5),
     maxWidth: getMaxWidth()
   };
 

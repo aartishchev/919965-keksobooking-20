@@ -2,9 +2,9 @@
 
 (function () {
   var filtersForm = document.querySelector('.map__filters');
-  // var housingSelect = filtersForm.querySelector('#housing-type');
-  // var priceSelect = filtersForm.querySelector('#housing-price');
-  // var roomsSelect = filtersForm.querySelector('#housing-rooms');
+  var housingSelect = filtersForm.querySelector('#housing-type');
+  var priceSelect = filtersForm.querySelector('#housing-price');
+  var roomsSelect = filtersForm.querySelector('#housing-rooms');
   // var guestsSelect = filtersForm.querySelector('#housing-guests');
 
   var setFilterFormAvailability = function (isAvailable) {
@@ -16,51 +16,65 @@
 
   };
 
-  // var selectedOptions = {
-  //   housing: housingSelect.value,
-  //   price: priceSelect.value,
-  //   rooms: roomsSelect.value
-  // };
-  // console.log(selectedOptions);
+  var selectedOptions = {
+    housing: housingSelect.value,
+    price: priceSelect.value,
+    rooms: roomsSelect.value,
+    features: []
+  };
+
+  var onHousingChange = function () {
+    var selectedType = housingSelect.value;
+    selectedOptions.housing = selectedType;
+    filterAdverts();
+  };
+
+  var onPriceChange = function () {
+    var selectedType = priceSelect.value;
+    selectedOptions.price = selectedType;
+    filterAdverts();
+  };
 
 
-  // var onHousingChange = function () {
-  //   var selectedType = housingSelect.value;
-  //   selectedOptions.housing = selectedType;
-  // };
+  filtersForm.addEventListener('change', function (evt) {
+    if (evt.target === housingSelect) {
+      onHousingChange();
+    } else if (evt.target === priceSelect) {
+      onPriceChange();
+    }
+  });
 
+  var updateAdverts = function (filteredAdverts) {
+    window.card.removeCard();
+    window.pin.removeAdverts();
+    window.pin.renderAdverts(filteredAdverts);
+  };
 
-  // var updateAdverts = function (filteredAdverts) {
-  //   window.card.removeCard();
-  //   window.pin.removeAdverts();
-  //   window.pin.renderAdverts(filteredAdverts);
-  // };
+  var filterAdverts = function () {
+    var loadedAdverts = window.pin.loadedAdverts;
 
-  // var filterHousingType = function () {
-  //   var selectedType = housingSelect.value;
-  //   var filteredAdverts = window.pin.loadedAdverts.filter(function (advert) {
+    var filteredAdverts = loadedAdverts
+    .filter(function (advert) {
 
-  //     if (selectedType === 'any') {
-  //       return advert;
-  //     } else {
-  //       return advert.offer.type === selectedType;
-  //     }
+      if (selectedOptions.housing === 'any') {
+        return advert;
+      } else {
+        return advert.offer.type === selectedOptions.housing;
+      }
 
-  //   });
+    })
+    .filter(function (advert) {
 
-  //   updateAdverts(filteredAdverts);
-  // };
+      if (selectedOptions.price === 'any') {
+        return advert;
+      } else {
+        return advert.offer.price === selectedOptions.price;
+      }
 
-  // var filterPriceType = function () {
-  //   var selectedType = priceSelect.value;
-  //   var filteredAdverts = window.pin.loadedAdverts.filter(function (advert) {
+    });
 
-  //    if (selectedType < )
-
-  //   });
-
-  //   updateAdverts(filteredAdverts);
-  // };
+    updateAdverts(filteredAdverts);
+  };
 
   var activateFilter = function () {
     setFilterFormAvailability(true);

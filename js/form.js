@@ -21,8 +21,8 @@
   };
 
   var getMainPinCoordinatesByScale = function (scale) {
-    var mainPinWidth = window.consts.PIN_WIDTH;
-    var mainPinHeight = window.consts.PIN_HEIGHT;
+    var mainPinWidth = window.const.PIN_WIDTH;
+    var mainPinHeight = window.const.PIN_HEIGHT;
     var coordinateX = parseInt(mainPin.style.left, 10);
     var coordinateY = parseInt(mainPin.style.top, 10);
     var valueX = Math.round(coordinateX + mainPinWidth / 2);
@@ -34,7 +34,7 @@
   var setMinPrice = function () {
     var priceInput = advertForm.querySelector('#price');
     var currentTypeValue = typeSelect.value;
-    var currentMinPrice = window.consts.MIN_PRICE_MAP[currentTypeValue];
+    var currentMinPrice = window.const.MIN_PRICE_MAP[currentTypeValue];
 
     priceInput.placeholder = currentMinPrice;
     priceInput.min = currentMinPrice;
@@ -51,7 +51,7 @@
   var addGuestsOptionsHandler = function () {
     var guests = guestsSelect.children;
     var currentRoomsOption = roomsSelect.value;
-    var currentGuestOptions = window.consts.GUESTS_OPTIONS[currentRoomsOption];
+    var currentGuestOptions = window.const.GUESTS_OPTIONS[currentRoomsOption];
 
     for (var k = 0; k < guests.length; k++) {
       guests[k].disabled = true;

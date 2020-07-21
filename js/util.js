@@ -47,7 +47,7 @@
 
       lastTimeout = window.setTimeout(function () {
         cb.apply(null, parameters);
-      }, window.consts.DEBOUNCE_INTERVAL);
+      }, window.const.DEBOUNCE_INTERVAL);
     };
   };
 

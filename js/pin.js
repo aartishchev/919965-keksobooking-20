@@ -2,8 +2,8 @@
 
 (function () {
   var getAdvertPinCoordinates = function (advert) {
-    var PinCoordinateX = advert.location.x - (window.consts.PIN_WIDTH * 0.5);
-    var PinCoordinateY = advert.location.y - window.consts.PIN_HEIGHT;
+    var PinCoordinateX = advert.location.x - (window.const.PIN_WIDTH * 0.5);
+    var PinCoordinateY = advert.location.y - window.const.PIN_HEIGHT;
 
     return 'left: ' + PinCoordinateX + 'px; top: ' + PinCoordinateY + 'px';
   };
@@ -26,7 +26,7 @@
 
   var getAdvertsFragment = function (adverts) {
     var fragment = document.createDocumentFragment();
-    var advertsCount = Math.min(adverts.length, window.consts.ADVERTS_TO_RENDER);
+    var advertsCount = Math.min(adverts.length, window.const.ADVERTS_TO_RENDER);
 
     for (var i = 0; i < advertsCount; i++) {
       var currentDomAdvert = getAdvertPin(adverts[i], i);
