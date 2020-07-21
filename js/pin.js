@@ -75,9 +75,9 @@
     var fragment = getAdvertsFragment(adverts);
     advertPinsList.appendChild(fragment);
 
-    var advertClickHandler = advertClickFactory(adverts);
+    // var advertClickHandler = advertClickFactory(adverts);
 
-    advertPinsList.addEventListener('click', advertClickHandler);
+    advertPinsList.addEventListener('click', advertClickFactory(adverts));
     advertPinsList.addEventListener('keydown', onAdvertEnter);
   };
 
@@ -89,7 +89,7 @@
     });
 
     // advertPinsList.removeEventListener('click', advertClickHandler);
-    advertPinsList.removeEventListener('keydown', onAdvertEnter);
+    // advertPinsList.removeEventListener('keydown', onAdvertEnter);
   };
 
   var mainPin = document.querySelector('.map__pin--main');
