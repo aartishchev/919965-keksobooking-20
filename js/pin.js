@@ -52,21 +52,21 @@
 
   var advertsToRender = null;
 
-  // var advertClickHandler = onAdvertClick();
+  var advertClickFactory = function () {
+    return function (evt) {
+      var advertIndex = evt.target.dataset.index;
 
-  var onAdvertClick = function (evt) {
-    var advertIndex = evt.target.dataset.index;
+      if (advertIndex) {
+        window.card.removeCard();
+        removeAdvertHighlight();
 
-    if (advertIndex) {
-      window.card.removeCard();
-      removeAdvertHighlight();
+        window.card.renderCard(advertsToRender[advertIndex]);
 
-      window.card.renderCard(advertsToRender[advertIndex]);
+        var targetButton = evt.target.closest('button');
+        targetButton.classList.add('map__pin--active');
+      }
 
-      var targetButton = evt.target.closest('button');
-      targetButton.classList.add('map__pin--active');
-    }
-
+    };
   };
 
   var renderAdverts = function (adverts) {
@@ -86,15 +86,15 @@
 
   var mainPin = document.querySelector('.map__pin--main');
 
+  var onAdvertClick = advertClickFactory();
+
   var onLoad = function (adverts) {
     window.pin.loadedAdverts = adverts;
     window.filter.activateFilter();
 
     var shuffledAdverts = window.util.shuffleArray(adverts);
     renderAdverts(shuffledAdverts);
-    advertPinsList.addEventListener('click', function (evt) {
-      onAdvertClick(evt);
-    });
+    advertPinsList.addEventListener('click', onAdvertClick);
 
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
@@ -108,6 +108,7 @@
     positionAdvertPins: positionAdvertPins,
     renderAdverts: renderAdverts,
     removeAdverts: removeAdverts,
+    onAdvertClick: onAdvertClick,
     loadedAdverts: []
   };
 

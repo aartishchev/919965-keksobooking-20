@@ -72,19 +72,19 @@
 
   var selectMap = {
     'housing-type': {
-      obj: housingSelect,
+      select: housingSelect,
       type: 'housing'
     },
     'housing-price': {
-      obj: priceSelect,
+      select: priceSelect,
       type: 'price'
     },
     'housing-rooms': {
-      obj: roomsSelect,
+      select: roomsSelect,
       type: 'rooms'
     },
     'housing-guests': {
-      obj: guestsSelect,
+      select: guestsSelect,
       type: 'guests'
     },
   };
@@ -92,7 +92,7 @@
   filtersForm.addEventListener('change', function (evt) {
     var handler = selectMap[evt.target.id];
     if (handler) {
-      onChange(handler.obj, handler.type);
+      onChange(handler.select, handler.type);
     }
   });
 

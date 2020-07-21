@@ -4,6 +4,7 @@
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var advertForm = document.querySelector('.ad-form');
+  var advertPinsList = document.querySelector('.map__pins');
 
   var activatePage = function () {
     mapBlock.classList.remove('map--faded');
@@ -24,6 +25,7 @@
     mainPin.removeEventListener('mousedown', window.move.onMoveEvent);
 
     window.move.checkMainPinPosition();
+    advertPinsList.removeEventListener('click', window.pin.onAdvertClick);
     mainPin.addEventListener('mousedown', onMainPinClick);
     mainPin.addEventListener('keydown', onMainPinEnter);
   };
