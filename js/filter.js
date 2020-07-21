@@ -31,10 +31,6 @@
     filterAdverts();
   };
 
-  // onCheck = function (evt) {
-
-  // }
-
   var getAdvertOnType = function (advert) {
     if (selectedOptions.housing === 'any') {
       return advert;
@@ -98,21 +94,6 @@
     if (handler) {
       onChange(handler.obj, handler.type);
     }
-
-    // switch (evt.target) {
-    //   case housingSelect:
-    //     onChange(housingSelect, 'housing');
-    //     break;
-    //   case priceSelect:
-    //     onChange(priceSelect, 'price');
-    //     break;
-    //   case roomsSelect:
-    //     onChange(roomsSelect, 'rooms');
-    //     break;
-    //   case guestsSelect:
-    //     onChange(guestsSelect, 'guests');
-    //     break;
-    // }
   });
 
   var updateAdverts = function (filteredAdverts) {

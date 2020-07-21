@@ -12,7 +12,6 @@
 
     window.form.activateForm();
     mainPin.addEventListener('mousedown', window.move.onMoveEvent);
-
   };
 
   var deactivatePage = function () {

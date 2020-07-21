@@ -50,35 +50,29 @@
     }
   };
 
-  var advertClickFactory = function (adverts) {
-    return function (evt) {
-      var advertIndex = evt.target.dataset.index;
+  var advertsToRender = null;
 
-      if (evt.target.dataset.index) {
-        window.card.removeCard();
-        removeAdvertHighlight();
+  // var advertClickHandler = onAdvertClick();
 
-        window.card.renderCard(adverts[advertIndex]);
+  var onAdvertClick = function (evt) {
+    var advertIndex = evt.target.dataset.index;
 
-        var targetButton = evt.target.closest('button');
-        targetButton.classList.add('map__pin--active');
-      }
+    if (advertIndex) {
+      window.card.removeCard();
+      removeAdvertHighlight();
 
-    };
-  };
+      window.card.renderCard(advertsToRender[advertIndex]);
 
-  var onAdvertEnter = function (evt) {
-    window.util.onEnterEvent(evt, advertClickFactory);
+      var targetButton = evt.target.closest('button');
+      targetButton.classList.add('map__pin--active');
+    }
+
   };
 
   var renderAdverts = function (adverts) {
-    var fragment = getAdvertsFragment(adverts);
+    advertsToRender = adverts;
+    var fragment = getAdvertsFragment(advertsToRender);
     advertPinsList.appendChild(fragment);
-
-    // var advertClickHandler = advertClickFactory(adverts);
-
-    advertPinsList.addEventListener('click', advertClickFactory(adverts));
-    advertPinsList.addEventListener('keydown', onAdvertEnter);
   };
 
   var removeAdverts = function () {
@@ -88,8 +82,6 @@
       element.remove();
     });
 
-    // advertPinsList.removeEventListener('click', advertClickHandler);
-    // advertPinsList.removeEventListener('keydown', onAdvertEnter);
   };
 
   var mainPin = document.querySelector('.map__pin--main');
@@ -100,6 +92,9 @@
 
     var shuffledAdverts = window.util.shuffleArray(adverts);
     renderAdverts(shuffledAdverts);
+    advertPinsList.addEventListener('click', function (evt) {
+      onAdvertClick(evt);
+    });
 
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
