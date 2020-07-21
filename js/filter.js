@@ -6,7 +6,7 @@
   var priceSelect = filtersForm.querySelector('#housing-price');
   var roomsSelect = filtersForm.querySelector('#housing-rooms');
   var guestsSelect = filtersForm.querySelector('#housing-guests');
-  var featuresSelects = filtersForm.querySelectorAll('[type="checkbox"]');
+  // var featuresSelects = Array.from(filtersForm.querySelectorAll('[type="checkbox"]'));
 
   var setFilterFormAvailability = function (isAvailable) {
     var filterInputs = filtersForm.querySelectorAll('option');
@@ -30,6 +30,10 @@
     selectedOptions[offer] = selectedType;
     filterAdverts();
   };
+
+  // onCheck = function (evt) {
+
+  // }
 
   var getAdvertOnType = function (advert) {
     if (selectedOptions.housing === 'any') {
@@ -70,23 +74,45 @@
     }
   };
 
+  var selectMap = {
+    'housing-type': {
+      obj: housingSelect,
+      type: 'housing'
+    },
+    'housing-price': {
+      obj: priceSelect,
+      type: 'price'
+    },
+    'housing-rooms': {
+      obj: roomsSelect,
+      type: 'rooms'
+    },
+    'housing-guests': {
+      obj: guestsSelect,
+      type: 'guests'
+    },
+  };
+
   filtersForm.addEventListener('change', function (evt) {
-    switch (evt.target) {
-      case housingSelect:
-        onChange(housingSelect, 'housing');
-        break;
-      case priceSelect:
-        onChange(priceSelect, 'price');
-        break;
-      case roomsSelect:
-        onChange(roomsSelect, 'rooms');
-        break;
-      case guestsSelect:
-        onChange(guestsSelect, 'guests');
-        break;
-      case featuresSelect:
-        console.log(featuresSelects.checked);
+    var handler = selectMap[evt.target.id];
+    if (handler) {
+      onChange(handler.obj, handler.type);
     }
+
+    // switch (evt.target) {
+    //   case housingSelect:
+    //     onChange(housingSelect, 'housing');
+    //     break;
+    //   case priceSelect:
+    //     onChange(priceSelect, 'price');
+    //     break;
+    //   case roomsSelect:
+    //     onChange(roomsSelect, 'rooms');
+    //     break;
+    //   case guestsSelect:
+    //     onChange(guestsSelect, 'guests');
+    //     break;
+    // }
   });
 
   var updateAdverts = function (filteredAdverts) {
