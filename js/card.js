@@ -6,7 +6,7 @@
     var typeValue = advert.offer.type;
 
     if (typeValue) {
-      return window.consts.housingType[typeValue];
+      return window.const.HOUSING_TYPE[typeValue];
     } else {
       return '';
     }
@@ -99,14 +99,37 @@
   var mapBlock = document.querySelector('.map');
   var filtersContainer = mapBlock.querySelector('.map__filters-container');
 
+  var onCardEscape = function (evt) {
+    window.util.onEscEvent(evt, removeCard);
+  };
+
   // отрисовываем карточку
   var renderCard = function (advert) {
     var card = getCard(advert);
     mapBlock.insertBefore(card, filtersContainer);
+
+    var closeButton = card.querySelector('.popup__close');
+    closeButton.addEventListener('click', removeCard);
+    window.addEventListener('keydown', onCardEscape);
+  };
+
+  // удаляем карточку, если отрисована
+  var removeCard = function () {
+    var card = mapBlock.querySelector('.map__card');
+
+    if (card) {
+      card.remove();
+
+      var closeButton = card.querySelector('.popup__close');
+      closeButton.removeEventListener('click', removeCard);
+      window.removeEventListener('keydown', onCardEscape);
+    }
+
   };
 
   window.card = {
-    renderCard: renderCard
+    renderCard: renderCard,
+    removeCard: removeCard
   };
 
 })();

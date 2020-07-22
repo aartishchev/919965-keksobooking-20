@@ -4,6 +4,7 @@
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var advertForm = document.querySelector('.ad-form');
+  var advertPinsList = document.querySelector('.map__pins');
 
   var activatePage = function () {
     mapBlock.classList.remove('map--faded');
@@ -12,18 +13,20 @@
 
     window.form.activateForm();
     mainPin.addEventListener('mousedown', window.move.onMoveEvent);
-
   };
 
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     advertForm.classList.add('ad-form--disabled');
-    window.filter.removeAdverts();
+    window.pin.removeAdverts();
+    window.card.removeCard();
 
     window.form.deactivateForm();
     mainPin.removeEventListener('mousedown', window.move.onMoveEvent);
 
     window.move.checkMainPinPosition();
+    window.filter.deactivateFilter();
+    advertPinsList.removeEventListener('click', window.pin.onAdvertClick);
     mainPin.addEventListener('mousedown', onMainPinClick);
     mainPin.addEventListener('keydown', onMainPinEnter);
   };
