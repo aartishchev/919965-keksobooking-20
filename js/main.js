@@ -12,7 +12,6 @@
     window.pin.positionAdvertPins();
 
     window.form.activateForm();
-    mainPin.addEventListener('mousedown', window.move.onMoveEvent);
   };
 
   var deactivatePage = function () {
@@ -22,7 +21,6 @@
     window.card.removeCard();
 
     window.form.deactivateForm();
-    mainPin.removeEventListener('mousedown', window.move.onMoveEvent);
 
     window.move.checkMainPinPosition();
     window.filter.deactivateFilter();
@@ -39,6 +37,7 @@
     window.util.onEnterEvent(evt, activatePage);
   };
 
+  mainPin.addEventListener('mousedown', window.move.onMoveEvent);
   mainPin.addEventListener('mousedown', onMainPinClick);
   mainPin.addEventListener('keydown', onMainPinEnter);
 

@@ -3,7 +3,6 @@
 (function () {
   var minMiddleHousingPrice = window.const.HOUSING_PRICE.minMiddle;
   var maxMiddleHousingPrice = window.const.HOUSING_PRICE.maxMiddle;
-
   var getLoadedAdverts = window.pin.getLoadedAdverts;
 
   var removeCard = function () {
@@ -23,14 +22,9 @@
   var guestsSelect = filtersForm.querySelector('#housing-guests');
 
   var setFilterFormAvailability = function (isAvailable) {
-    var filterInputs = filtersForm.querySelectorAll('input');
-    var filterSelects = filtersForm.querySelectorAll('select');
+    var filterInputs = filtersForm.querySelectorAll('input, select');
 
     filterInputs.forEach(function (element) {
-      element.disabled = !isAvailable;
-    });
-
-    filterSelects.forEach(function (element) {
       element.disabled = !isAvailable;
     });
 
@@ -103,22 +97,22 @@
     }
   };
 
-  // var getAdvertOnFeatures = function (advert) {
-  //   var advertFeatures = advert.offer.features;
-  //   var filterFeatures = selectedOptions.features;
+  var getAdvertOnFeatures = function (advert) {
+    var advertFeatures = advert.offer.features;
+    var filterFeatures = selectedOptions.features;
 
-  //   if (filterFeatures.length === 0) {
-  //     return true;
-  //   }
+    if (filterFeatures.length === 0) {
+      return true;
+    }
 
-  //   var i = 0;
+    var i = 0;
 
-  //   while (!filterFeatures.includes(advertFeatures[i])) {
-  //     i++;
-  //   }
+    while (!filterFeatures.includes(advertFeatures[i])) {
+      i++;
+    }
 
-  //   return false;
-  // };
+    return false;
+  };
 
   var selectMap = {
     'housing-type': {
