@@ -5,14 +5,6 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  var getRandomArrayElement = function (array) {
-    return array[getRandomInteger(0, array.length - 1)];
-  };
-
-  var getRandomSlicedArray = function (array) {
-    return array.slice(0, getRandomInteger(0, array.length));
-  };
-
   var shuffleArray = function (array) {
     var currentIndex = array.length;
     var temporaryValue;
@@ -29,11 +21,11 @@
     return array;
   };
 
-  var removeChildren = function (parentElement) {
-    while (parentElement.firstChild) {
-      parentElement.removeChild(parentElement.firstChild);
-    }
-  };
+  // var removeChildren = function (parentElement) {
+  //   while (parentElement.firstChild) {
+  //     parentElement.removeChild(parentElement.firstChild);
+  //   }
+  // };
 
   var debounce = function (cb) {
     var lastTimeout = null;
@@ -71,13 +63,11 @@
 
   window.util = {
     getRandomInteger: getRandomInteger,
-    getRandomArrayElement: getRandomArrayElement,
-    getRandomSlicedArray: getRandomSlicedArray,
     shuffleArray: shuffleArray,
     onEnterEvent: onEnterEvent,
     onEscEvent: onEscEvent,
     onMousedownEvent: onMousedownEvent,
-    removeChildren: removeChildren,
+    // removeChildren: removeChildren,
     debounce: debounce
   };
 

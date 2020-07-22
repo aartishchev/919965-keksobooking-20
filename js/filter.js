@@ -4,9 +4,8 @@
   var minMiddleHousingPrice = window.const.HOUSING_PRICE.minMiddle;
   var maxMiddleHousingPrice = window.const.HOUSING_PRICE.maxMiddle;
 
-  var getLoadedAdverts = function () {
-    return window.pin.getLoadedAdverts();
-  };
+  var getLoadedAdverts = window.pin.getLoadedAdverts;
+
   var removeCard = function () {
     window.card.removeCard();
   };
@@ -24,9 +23,14 @@
   var guestsSelect = filtersForm.querySelector('#housing-guests');
 
   var setFilterFormAvailability = function (isAvailable) {
-    var filterInputs = filtersForm.querySelectorAll('option');
+    var filterInputs = filtersForm.querySelectorAll('input');
+    var filterSelects = filtersForm.querySelectorAll('select');
 
     filterInputs.forEach(function (element) {
+      element.disabled = !isAvailable;
+    });
+
+    filterSelects.forEach(function (element) {
       element.disabled = !isAvailable;
     });
 
@@ -43,6 +47,7 @@
   var onChange = function (select, offer) {
     var selectedType = select.value;
     selectedOptions[offer] = selectedType;
+
     filterAdverts();
   };
 
@@ -56,6 +61,7 @@
       selectedOptions.features.push(checkedFeature);
     }
 
+    filterAdverts();
   };
 
   var getAdvertOnType = function (advert) {
@@ -98,8 +104,21 @@
   };
 
   // var getAdvertOnFeatures = function (advert) {
-  //   var
-  // }
+  //   var advertFeatures = advert.offer.features;
+  //   var filterFeatures = selectedOptions.features;
+
+  //   if (filterFeatures.length === 0) {
+  //     return true;
+  //   }
+
+  //   var i = 0;
+
+  //   while (!filterFeatures.includes(advertFeatures[i])) {
+  //     i++;
+  //   }
+
+  //   return false;
+  // };
 
   var selectMap = {
     'housing-type': {
@@ -120,7 +139,7 @@
     }
   };
 
-  filtersForm.addEventListener('change', function (evt) {
+  var filterFormHandler = function (evt) {
     var selectId = selectMap[evt.target.id];
 
     if (selectId) {
@@ -131,7 +150,9 @@
       onClick(evt);
     }
 
-  });
+  };
+
+  var debouncedFormHandler = window.util.debounce(filterFormHandler);
 
   var updateAdverts = function (filteredAdverts) {
     removeCard();
@@ -147,19 +168,26 @@
     .filter(getAdvertOnPrice)
     .filter(getAdvertOnRooms)
     .filter(getAdvertOnGuests);
+    // .filter(getAdvertOnFeatures);
 
     updateAdverts(filteredAdverts);
   };
 
   var activateFilter = function () {
     setFilterFormAvailability(true);
-    // housingSelect.addEventListener('change', filterHousingType);
+    filtersForm.addEventListener('change', debouncedFormHandler);
+  };
+
+  var deactivateFilter = function () {
+    setFilterFormAvailability(false);
+    filtersForm.removeEventListener('change', filterFormHandler);
   };
 
   setFilterFormAvailability(false);
 
   window.filter = {
     activateFilter: activateFilter,
+    deactivateFilter: deactivateFilter
   };
 
 })();

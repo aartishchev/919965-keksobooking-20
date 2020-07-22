@@ -25,6 +25,7 @@
     mainPin.removeEventListener('mousedown', window.move.onMoveEvent);
 
     window.move.checkMainPinPosition();
+    window.filter.deactivateFilter();
     advertPinsList.removeEventListener('click', window.pin.onAdvertClick);
     mainPin.addEventListener('mousedown', onMainPinClick);
     mainPin.addEventListener('keydown', onMainPinEnter);
