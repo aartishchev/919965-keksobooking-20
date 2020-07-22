@@ -86,8 +86,11 @@
   var onAdvertClick = advertClickFactory();
   var mainPin = document.querySelector('.map__pin--main');
 
+  var loadedAdverts = null;
+
   var onLoad = function (adverts) {
-    window.pin.loadedAdverts = adverts;
+    loadedAdverts = adverts;
+
     window.filter.activateFilter();
 
     var shuffledAdverts = window.util.shuffleArray(adverts);
@@ -96,6 +99,10 @@
 
     mainPin.removeEventListener('mousedown', window.main.onMainPinClick);
     mainPin.removeEventListener('keydown', window.main.onMainPinEnter);
+  };
+
+  var getLoadedAdverts = function () {
+    return loadedAdverts;
   };
 
   var positionAdvertPins = function () {
@@ -107,7 +114,7 @@
     renderAdverts: renderAdverts,
     removeAdverts: removeAdverts,
     onAdvertClick: onAdvertClick,
-    loadedAdverts: []
+    getLoadedAdverts: getLoadedAdverts
   };
 
 })();

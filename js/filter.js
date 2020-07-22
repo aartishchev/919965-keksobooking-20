@@ -4,6 +4,9 @@
   var minMiddleHousingPrice = window.const.HOUSING_PRICE.minMiddle;
   var maxMiddleHousingPrice = window.const.HOUSING_PRICE.maxMiddle;
 
+  var getLoadedAdverts = function () {
+    return window.pin.getLoadedAdverts();
+  };
   var removeCard = function () {
     window.card.removeCard();
   };
@@ -95,7 +98,7 @@
   };
 
   // var getAdvertOnFeatures = function (advert) {
-
+  //   var
   // }
 
   var selectMap = {
@@ -137,8 +140,7 @@
   };
 
   var filterAdverts = function () {
-
-    var loadedAdverts = window.pin.loadedAdverts;
+    var loadedAdverts = getLoadedAdverts();
 
     var filteredAdverts = loadedAdverts
     .filter(getAdvertOnType)
