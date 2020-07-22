@@ -52,23 +52,6 @@
 
   var advertsToRender = null;
 
-  var advertClickFactory = function () {
-    return function (evt) {
-      var advertIndex = evt.target.dataset.index;
-
-      if (advertIndex) {
-        window.card.removeCard();
-        removeAdvertHighlight();
-
-        window.card.renderCard(advertsToRender[advertIndex]);
-
-        var targetButton = evt.target.closest('button');
-        targetButton.classList.add('map__pin--active');
-      }
-
-    };
-  };
-
   var renderAdverts = function (adverts) {
     advertsToRender = adverts;
     var fragment = getAdvertsFragment(advertsToRender);
@@ -84,9 +67,24 @@
 
   };
 
-  var mainPin = document.querySelector('.map__pin--main');
+  var advertClickFactory = function () {
+    return function (evt) {
+      var advertIndex = evt.target.dataset.index;
+
+      if (advertIndex) {
+        window.card.removeCard();
+        removeAdvertHighlight();
+        window.card.renderCard(advertsToRender[advertIndex]);
+
+        var targetButton = evt.target.closest('button');
+        targetButton.classList.add('map__pin--active');
+      }
+
+    };
+  };
 
   var onAdvertClick = advertClickFactory();
+  var mainPin = document.querySelector('.map__pin--main');
 
   var onLoad = function (adverts) {
     window.pin.loadedAdverts = adverts;

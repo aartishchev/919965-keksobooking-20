@@ -6,7 +6,7 @@
     var typeValue = advert.offer.type;
 
     if (typeValue) {
-      return window.const.housingType[typeValue];
+      return window.const.HOUSING_TYPE[typeValue];
     } else {
       return '';
     }

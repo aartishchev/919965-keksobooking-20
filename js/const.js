@@ -36,14 +36,14 @@
     100: ['не для гостей']
   };
 
-  var housingType = {
+  var HOUSING_TYPE = {
     'flat': 'Квартира',
     'bungalo': 'Бунгало',
     'house': 'Дом',
     'palace': 'Дворец'
   };
 
-  var housingPrice = {
+  var HOUSING_PRICE = {
     'minMiddle': 10000,
     'maxMiddle': 50000
   };
@@ -66,8 +66,8 @@
     GUESTS_OPTIONS: GUESTS_OPTIONS,
     ADVERTS_TO_RENDER: ADVERTS_TO_RENDER,
     DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL,
-    housingType: housingType,
-    housingPrice: housingPrice
+    HOUSING_TYPE: HOUSING_TYPE,
+    HOUSING_PRICE: HOUSING_PRICE
   };
 
 })();
