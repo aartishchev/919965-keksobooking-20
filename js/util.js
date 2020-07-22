@@ -21,12 +21,6 @@
     return array;
   };
 
-  // var removeChildren = function (parentElement) {
-  //   while (parentElement.firstChild) {
-  //     parentElement.removeChild(parentElement.firstChild);
-  //   }
-  // };
-
   var debounce = function (cb) {
     var lastTimeout = null;
 
@@ -67,7 +61,6 @@
     onEnterEvent: onEnterEvent,
     onEscEvent: onEscEvent,
     onMousedownEvent: onMousedownEvent,
-    // removeChildren: removeChildren,
     debounce: debounce
   };
 

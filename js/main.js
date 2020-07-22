@@ -33,6 +33,10 @@
     window.util.onMousedownEvent(evt, activatePage);
   };
 
+  // var onMainPinMove = function (evt) {
+  //   window.util.onMousedownEvent(evt, window.move.onMoveEvent(evt));
+  // };
+
   var onMainPinEnter = function (evt) {
     window.util.onEnterEvent(evt, activatePage);
   };

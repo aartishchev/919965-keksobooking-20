@@ -101,17 +101,11 @@
     var advertFeatures = advert.offer.features;
     var filterFeatures = selectedOptions.features;
 
-    if (filterFeatures.length === 0) {
-      return true;
+    if (filterFeatures.every()) {
+
     }
 
-    var i = 0;
 
-    while (!filterFeatures.includes(advertFeatures[i])) {
-      i++;
-    }
-
-    return false;
   };
 
   var selectMap = {
@@ -161,8 +155,8 @@
     .filter(getAdvertOnType)
     .filter(getAdvertOnPrice)
     .filter(getAdvertOnRooms)
-    .filter(getAdvertOnGuests);
-    // .filter(getAdvertOnFeatures);
+    .filter(getAdvertOnGuests)
+    .filter(getAdvertOnFeatures);
 
     updateAdverts(filteredAdverts);
   };
