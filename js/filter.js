@@ -101,11 +101,15 @@
     var advertFeatures = advert.offer.features;
     var filterFeatures = selectedOptions.features;
 
-    if (filterFeatures.every()) {
+    for (var i = 0; i < filterFeatures.length; i++) {
+
+      if (!advertFeatures.includes(filterFeatures[i])) {
+        return false;
+      }
 
     }
 
-
+    return true;
   };
 
   var selectMap = {
