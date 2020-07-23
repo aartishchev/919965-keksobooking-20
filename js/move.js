@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var PinMaxY = window.const.PIN.MAX_Y;
+  var PinMinY = window.const.PIN.MIN_Y;
+  var pinHeight = window.const.PIN.HEIGHT;
+  var pinWidth = window.const.PIN.WIDTH;
+  var debounce = window.util.debounce;
+  var getMainPinCoordinatesByScale = window.form.getMainPinCoordinatesByScale;
+
   var mapBlock = document.querySelector('.map__pins');
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var adressInput = document.querySelector('#address');
@@ -11,13 +18,13 @@
   };
 
   var getMaxWidth = function () {
-    return mapBlock.offsetWidth - Math.round(window.const.PIN_WIDTH * 0.5);
+    return mapBlock.offsetWidth - Math.round(pinWidth * 0.5);
   };
 
   var borders = {
-    minHeight: window.const.PIN_MIN_Y - window.const.PIN_HEIGHT,
-    maxHeight: window.const.PIN_MAX_Y - window.const.PIN_HEIGHT,
-    minWidth: 0 - Math.round(window.const.PIN_WIDTH * 0.5),
+    minHeight: PinMinY - pinHeight,
+    maxHeight: PinMaxY - pinHeight,
+    minWidth: 0 - Math.round(pinWidth * 0.5),
     maxWidth: getMaxWidth()
   };
 
@@ -25,7 +32,7 @@
     borders.maxWidth = getMaxWidth();
   };
 
-  window.addEventListener('resize', window.util.debounce(setBordersMaxWidth));
+  window.addEventListener('resize', debounce(setBordersMaxWidth));
 
   var onMoveEvent = function (evt) {
     evt.preventDefault();
@@ -61,7 +68,7 @@
         mainPin.style.left = newCoordinate.x + 'px';
       }
 
-      adressInput.value = window.form.getMainPinCoordinatesByScale(1);
+      adressInput.value = getMainPinCoordinatesByScale(1);
     };
 
     var onMouseUp = function (upEvt) {
@@ -82,6 +89,7 @@
       mainPin.style.top = defaultMainPinPosition.top;
       mainPin.style.left = defaultMainPinPosition.left;
     }
+
   };
 
   window.move = {

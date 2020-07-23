@@ -1,11 +1,19 @@
 'use strict';
 
 (function () {
+  var mainPinWidth = window.const.PIN.WIDTH;
+  var mainPinHeight = window.const.PIN.HEIGHT;
+  var minPriceMap = window.const.MIN_PRICE_MAP;
+  var guestsOptions = window.const.GUESTS_OPTIONS;
+  var onEscEvent = window.util.onEscEvent;
+  var save = window.backend.save;
+
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
   var advertForm = document.querySelector('.ad-form');
   var adressInput = advertForm.querySelector('#address');
   var typeSelect = advertForm.querySelector('#type');
+  var priceInput = advertForm.querySelector('#price');
   var timeInSelect = advertForm.querySelector('#timein');
   var timeOutSelect = advertForm.querySelector('#timeout');
   var roomsSelect = advertForm.querySelector('#room_number');
@@ -21,8 +29,6 @@
   };
 
   var getMainPinCoordinatesByScale = function (scale) {
-    var mainPinWidth = window.const.PIN_WIDTH;
-    var mainPinHeight = window.const.PIN_HEIGHT;
     var coordinateX = parseInt(mainPin.style.left, 10);
     var coordinateY = parseInt(mainPin.style.top, 10);
     var valueX = Math.round(coordinateX + mainPinWidth / 2);
@@ -32,9 +38,8 @@
   };
 
   var setMinPrice = function () {
-    var priceInput = advertForm.querySelector('#price');
     var currentTypeValue = typeSelect.value;
-    var currentMinPrice = window.const.MIN_PRICE_MAP[currentTypeValue];
+    var currentMinPrice = minPriceMap[currentTypeValue];
 
     priceInput.placeholder = currentMinPrice;
     priceInput.min = currentMinPrice;
@@ -49,25 +54,24 @@
   };
 
   var addGuestsOptionsHandler = function () {
-    var guests = guestsSelect.children;
+    var guests = guestsSelect.querySelectorAll('option');
     var currentRoomsOption = roomsSelect.value;
-    var currentGuestOptions = window.const.GUESTS_OPTIONS[currentRoomsOption];
+    var currentGuestOptions = guestsOptions[currentRoomsOption];
 
-    for (var k = 0; k < guests.length; k++) {
-      guests[k].disabled = true;
-    }
+    guests.forEach(function (option) {
+      option.disabled = true;
+    });
 
-    for (var i = 0; i < currentGuestOptions.length; i++) {
+    currentGuestOptions.forEach(function (option) {
 
-      for (var j = 0; j < guests.length; j++) {
-
-        if (currentGuestOptions[i] === guests[j].textContent) {
-          guests[j].disabled = false;
+      for (var i = 0; i < guests.length; i++) {
+        if (option === guests[i].textContent) {
+          guests[i].disabled = false;
+          break;
         }
-
       }
 
-    }
+    });
 
     addOptionValidation();
   };
@@ -87,17 +91,14 @@
   var mainBlock = document.querySelector('main');
   var similarSuccessMessage = document.querySelector('#success').content.querySelector('.success');
 
-  // отрисовываем сообщение об успешной отправке
   var renderSuccessMessage = function () {
     mainBlock.appendChild(similarSuccessMessage);
   };
 
-  // сохраняем ссылку на функцию для обработчика
   var onSuccessMessageEscape = function (evt) {
-    window.util.onEscEvent(evt, removeSuccessMessage);
+    onEscEvent(evt, removeSuccessMessage);
   };
 
-  // удаляем сообщение об успешной отправке, удаляем обработчики
   var removeSuccessMessage = function () {
     var successBlock = mainBlock.querySelector('.success');
     successBlock.remove();
@@ -106,7 +107,6 @@
     document.removeEventListener('keydown', onSuccessMessageEscape);
   };
 
-  // колбэк при успешной отправке объявления, добавляем обработчики на закрытие сообщения
   var onSave = function () {
     window.main.deactivatePage();
     deactivateForm();
@@ -118,17 +118,14 @@
 
   var similarErrorMessage = document.querySelector('#error').content.querySelector('.error');
 
-  // отрисовываем сообщение об ошибке
   var renderErrorMessage = function () {
     mainBlock.appendChild(similarErrorMessage);
   };
 
-  // сохраняем ссылку на функцию для обработчика
   var onErrorMessageEscape = function (evt) {
-    window.util.onEscEvent(evt, removeErrorMessage);
+    onEscEvent(evt, removeErrorMessage);
   };
 
-  // удаляем сообщение об ошибке, удаляем обработчики
   var removeErrorMessage = function () {
     var errorBlock = mainBlock.querySelector('.error');
     errorBlock.remove();
@@ -137,7 +134,6 @@
     document.removeEventListener('keydown', onErrorMessageEscape);
   };
 
-  // колбэк при ошибке отправки, добавляем обработчики на закрытие сообщения
   var onError = function () {
     renderErrorMessage();
 
@@ -146,12 +142,15 @@
   };
 
   var onSubmitEvent = function (evt) {
-    window.backend.save(onSave, onError, new FormData(advertForm));
+    save(onSave, onError, new FormData(advertForm));
     evt.preventDefault();
   };
 
   var onResetEvent = function () {
     window.main.deactivatePage();
+
+    var currentMinPrice = minPriceMap['flat'];
+    priceInput.placeholder = currentMinPrice;
   };
 
   var activateForm = function () {
