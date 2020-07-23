@@ -1,9 +1,18 @@
 'use strict';
 
 (function () {
+  var pinWidth = window.const.PIN.WIDTH;
+  var pinHeight = window.const.PIN.HEIGHT;
+  var advertsQuantity = window.const.ADVERTS_QUANTITY;
+  var removeCard = window.card.removeCard;
+  var renderCard = window.card.renderCard;
+  var shuffleArray = window.util.shuffleArray;
+  var load = window.backend.load;
+
   var getAdvertPinCoordinates = function (advert) {
-    var PinCoordinateX = advert.location.x - (window.const.PIN_WIDTH * 0.5);
-    var PinCoordinateY = advert.location.y - window.const.PIN_HEIGHT;
+
+    var PinCoordinateX = advert.location.x - (pinWidth * 0.5);
+    var PinCoordinateY = advert.location.y - pinHeight;
 
     return 'left: ' + PinCoordinateX + 'px; top: ' + PinCoordinateY + 'px';
   };
@@ -26,7 +35,7 @@
 
   var getAdvertsFragment = function (adverts) {
     var fragment = document.createDocumentFragment();
-    var advertsCount = Math.min(adverts.length, window.const.ADVERTS_TO_RENDER);
+    var advertsCount = Math.min(adverts.length, advertsQuantity);
 
     for (var i = 0; i < advertsCount; i++) {
       var currentDomAdvert = getAdvertPin(adverts[i], i);
@@ -72,9 +81,9 @@
       var advertIndex = evt.target.dataset.index;
 
       if (advertIndex) {
-        window.card.removeCard();
+        removeCard();
         removeAdvertHighlight();
-        window.card.renderCard(advertsToRender[advertIndex]);
+        renderCard(advertsToRender[advertIndex]);
 
         var targetButton = evt.target.closest('button');
         targetButton.classList.add('map__pin--active');
@@ -93,7 +102,7 @@
 
     window.filter.activateFilter();
 
-    var shuffledAdverts = window.util.shuffleArray(adverts);
+    var shuffledAdverts = shuffleArray(adverts);
     renderAdverts(shuffledAdverts);
     advertPinsList.addEventListener('click', onAdvertClick);
 
@@ -106,7 +115,7 @@
   };
 
   var positionAdvertPins = function () {
-    window.backend.load(onLoad);
+    load(onLoad);
   };
 
   window.pin = {

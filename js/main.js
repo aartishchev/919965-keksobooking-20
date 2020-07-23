@@ -1,30 +1,17 @@
 'use strict';
 
 (function () {
-  var positionAdvertPins = function () {
-    window.pin.positionAdvertPins();
-  };
-  var activateForm = function () {
-    window.form.activateForm();
-  };
-  var removeAdverts = function () {
-    window.pin.removeAdverts();
-  };
-  var removeCard = function () {
-    window.card.removeCard();
-  };
-  var deactivateForm = function () {
-    window.form.deactivateForm();
-  };
-  var checkMainPinPosition = function () {
-    window.move.checkMainPinPosition();
-  };
-  var deactivateFilter = function () {
-    window.filter.deactivateFilter();
-  };
-
+  var positionAdvertPins = window.pin.positionAdvertPins;
+  var activateForm = window.form.activateForm;
+  var removeAdverts = window.pin.removeAdverts;
+  var removeCard = window.card.removeCard;
+  var deactivateForm = window.form.deactivateForm;
+  var checkMainPinPosition = window.move.checkMainPinPosition;
+  var deactivateFilter = window.filter.deactivateFilter;
   var onAdvertClick = window.pin.onAdvertClick;
-
+  var onMousedownEvent = window.util.onMousedownEvent;
+  var onMoveEvent = window.move.onMoveEvent;
+  var onEnterEvent = window.util.onEnterEvent;
 
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
@@ -55,15 +42,17 @@
   };
 
   var onMainPinClick = function (evt) {
-    window.util.onMousedownEvent(evt, activatePage);
+    onMousedownEvent(evt, activatePage);
   };
 
   var onMainPinMove = function (evt) {
-    window.util.onMousedownEvent(evt, window.move.onMoveEvent(evt));
+    onMousedownEvent(evt, function () {
+      onMoveEvent(evt);
+    });
   };
 
   var onMainPinEnter = function (evt) {
-    window.util.onEnterEvent(evt, activatePage);
+    onEnterEvent(evt, activatePage);
   };
 
   mainPin.addEventListener('mousedown', onMainPinMove);

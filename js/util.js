@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var debounceInterval = window.const.DEBOUNCE_INTERVAL;
+
   var getRandomInteger = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
@@ -33,7 +35,7 @@
 
       lastTimeout = window.setTimeout(function () {
         cb.apply(null, parameters);
-      }, window.const.DEBOUNCE_INTERVAL);
+      }, debounceInterval);
     };
   };
 
@@ -58,10 +60,10 @@
   window.util = {
     getRandomInteger: getRandomInteger,
     shuffleArray: shuffleArray,
+    debounce: debounce,
     onEnterEvent: onEnterEvent,
     onEscEvent: onEscEvent,
     onMousedownEvent: onMousedownEvent,
-    debounce: debounce
   };
 
 })();
