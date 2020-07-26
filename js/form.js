@@ -7,12 +7,14 @@
   var guestsOptions = window.const.GUESTS_OPTIONS;
   var onEscEvent = window.util.onEscEvent;
   var save = window.backend.save;
-  var addPreview = window.preview.addPreview;
-  var removePreview = window.preview.removePreview;
+  var addPreview = window.preview.add;
+  var removePreview = window.preview.remove;
 
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
+
   var advertForm = document.querySelector('.ad-form');
+  var advertFieldsets = advertForm.querySelectorAll('fieldset');
   var adressInput = advertForm.querySelector('#address');
   var typeSelect = advertForm.querySelector('#type');
   var priceInput = advertForm.querySelector('#price');
@@ -22,7 +24,6 @@
   var guestsSelect = advertForm.querySelector('#capacity');
 
   var setMainFormAvailability = function (isAvailable) {
-    var advertFieldsets = advertForm.querySelectorAll('fieldset');
 
     advertFieldsets.forEach(function (element) {
       element.disabled = !isAvailable;
@@ -190,8 +191,8 @@
   addGuestsOptionsHandler();
 
   window.form = {
-    activateForm: activateForm,
-    deactivateForm: deactivateForm,
+    activate: activateForm,
+    deactivate: deactivateForm,
     getMainPinCoordinatesByScale: getMainPinCoordinatesByScale
   };
 

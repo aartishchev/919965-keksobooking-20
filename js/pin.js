@@ -4,8 +4,8 @@
   var pinWidth = window.const.PIN.WIDTH;
   var pinHeight = window.const.PIN.HEIGHT;
   var advertsQuantity = window.const.ADVERTS_QUANTITY;
-  var removeCard = window.card.removeCard;
-  var renderCard = window.card.renderCard;
+  var removeCard = window.card.remove;
+  var renderCard = window.card.render;
   var shuffleArray = window.util.shuffleArray;
   var load = window.backend.load;
 
@@ -100,7 +100,7 @@
   var onLoad = function (adverts) {
     loadedAdverts = adverts;
 
-    window.filter.activateFilter();
+    window.filter.activate();
 
     var shuffledAdverts = shuffleArray(adverts);
     renderAdverts(shuffledAdverts);

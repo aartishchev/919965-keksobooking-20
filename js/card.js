@@ -1,26 +1,22 @@
 'use strict';
 
 (function () {
-  // получам тип жилья
   var getType = function (advert) {
     var typeValue = advert.offer.type;
 
     if (typeValue) {
       return window.const.HOUSING_TYPE[typeValue];
-    } else {
-      return '';
     }
 
+    return '';
   };
 
-  // получаем название feature из класса элемента шаблона
   var getFeature = function (feature) {
     var parsedClassName = feature.className.split('--');
     var elementFeature = parsedClassName[parsedClassName.length - 1];
     return elementFeature;
   };
 
-  // проверяем наличие feature у переданного объявления
   var setFeatures = function (advert, cardTemplate) {
     var featureItems = cardTemplate.querySelectorAll('.popup__feature');
 
@@ -38,7 +34,6 @@
     });
   };
 
-  // добавляем фотографии, удаляем первый пустой img
   var setPhotos = function (advert, cardTemplate) {
     var photosContainer = cardTemplate.querySelector('.popup__photos');
     var photoElement = photosContainer.querySelector('.popup__photo');
@@ -52,7 +47,6 @@
     photosContainer.removeChild(photoElement);
   };
 
-  // удаляем пустые блоки
   var removeEmptyBlocks = function (cardTemplate) {
     var imgBlocks = cardTemplate.querySelectorAll('img');
 
@@ -72,7 +66,6 @@
 
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  // формируем карточку из шаблона
   var getCard = function (advert) {
     var card = similarCardTemplate.cloneNode(true);
 
@@ -103,7 +96,6 @@
     window.util.onEscEvent(evt, removeCard);
   };
 
-  // отрисовываем карточку
   var renderCard = function (advert) {
     var card = getCard(advert);
     mapBlock.insertBefore(card, filtersContainer);
@@ -113,7 +105,6 @@
     window.addEventListener('keydown', onCardEscape);
   };
 
-  // удаляем карточку, если отрисована
   var removeCard = function () {
     var card = mapBlock.querySelector('.map__card');
 
@@ -128,8 +119,8 @@
   };
 
   window.card = {
-    renderCard: renderCard,
-    removeCard: removeCard
+    render: renderCard,
+    remove: removeCard
   };
 
 })();
