@@ -68,7 +68,11 @@
     photoChooser.removeEventListener('change', setPhotoFactory);
 
     avatarBlock.querySelector('img').src = defaultAvatarPic;
-    // photoBlock.querySelector('img').remove();
+
+    if (photoBlock.querySelector('img')) {
+      photoBlock.querySelector('img').remove();
+    }
+
   };
 
   window.preview = {
