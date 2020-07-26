@@ -7,6 +7,8 @@
   var guestsOptions = window.const.GUESTS_OPTIONS;
   var onEscEvent = window.util.onEscEvent;
   var save = window.backend.save;
+  var addPreview = window.preview.addPreview;
+  var removePreview = window.preview.removePreview;
 
   var mapBlock = document.querySelector('.map');
   var mainPin = mapBlock.querySelector('.map__pin--main');
@@ -155,6 +157,7 @@
 
   var activateForm = function () {
     setMainFormAvailability(true);
+    addPreview();
     adressInput.value = getMainPinCoordinatesByScale(1);
 
     typeSelect.addEventListener('change', setMinPrice);
@@ -168,6 +171,7 @@
 
   var deactivateForm = function () {
     setMainFormAvailability(false);
+    removePreview();
     adressInput.value = getMainPinCoordinatesByScale(0.5);
 
     typeSelect.removeEventListener('change', setMinPrice);
