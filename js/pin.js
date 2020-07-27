@@ -10,11 +10,10 @@
   var load = window.backend.load;
 
   var getAdvertPinCoordinates = function (advert) {
+    var pinCoordinateX = advert.location.x - (pinWidth * 0.5);
+    var pinCoordinateY = advert.location.y - pinHeight;
 
-    var PinCoordinateX = advert.location.x - (pinWidth * 0.5);
-    var PinCoordinateY = advert.location.y - pinHeight;
-
-    return 'left: ' + PinCoordinateX + 'px; top: ' + PinCoordinateY + 'px';
+    return 'left: ' + pinCoordinateX + 'px; top: ' + pinCoordinateY + 'px';
   };
 
   var similarAdvertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
