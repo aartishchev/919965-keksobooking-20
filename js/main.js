@@ -2,12 +2,12 @@
 
 (function () {
   var positionAdvertPins = window.pin.positionAdvertPins;
-  var activateForm = window.form.activateForm;
+  var activateForm = window.form.activate;
   var removeAdverts = window.pin.removeAdverts;
-  var removeCard = window.card.removeCard;
-  var deactivateForm = window.form.deactivateForm;
+  var removeCard = window.card.remove;
+  var deactivateForm = window.form.deactivate;
   var checkMainPinPosition = window.move.checkMainPinPosition;
-  var deactivateFilter = window.filter.deactivateFilter;
+  var deactivateFilter = window.filter.deactivate;
   var onAdvertClick = window.pin.onAdvertClick;
   var onMousedownEvent = window.util.onMousedownEvent;
   var onMoveEvent = window.move.onMoveEvent;

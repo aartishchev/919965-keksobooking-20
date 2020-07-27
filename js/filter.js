@@ -4,19 +4,19 @@
   var minMiddleHousingPrice = window.const.HOUSING_PRICE.minMiddle;
   var maxMiddleHousingPrice = window.const.HOUSING_PRICE.maxMiddle;
   var getLoadedAdverts = window.pin.getLoadedAdverts;
-  var removeCard = window.card.removeCard;
+  var removeCard = window.card.remove;
   var removeAdverts = window.pin.removeAdverts;
   var renderAdverts = window.pin.renderAdverts;
   var debounce = window.util.debounce;
 
   var filtersForm = document.querySelector('.map__filters');
+  var filterInputs = filtersForm.querySelectorAll('input, select');
   var housingSelect = filtersForm.querySelector('#housing-type');
   var priceSelect = filtersForm.querySelector('#housing-price');
   var roomsSelect = filtersForm.querySelector('#housing-rooms');
   var guestsSelect = filtersForm.querySelector('#housing-guests');
 
   var setFilterFormAvailability = function (isAvailable) {
-    var filterInputs = filtersForm.querySelectorAll('input, select');
 
     filterInputs.forEach(function (element) {
       element.disabled = !isAvailable;
@@ -174,8 +174,8 @@
   setFilterFormAvailability(false);
 
   window.filter = {
-    activateFilter: activateFilter,
-    deactivateFilter: deactivateFilter
+    activate: activateFilter,
+    deactivate: deactivateFilter
   };
 
 })();
